@@ -1,25 +1,10 @@
 /* Program: queue.h
  * Deskripsi: Spesifikasi ADT Queue menggunakan Linked List
- * Nama: Ardhiansyah
- * Tanggal: 23 April 2011
- * Compiler: GCC 4.9.2
- * Update: Muhammad Saiful Islam
- * Tanggal Update: 7 April 2015
- * Tanggal Update 2: 20 Mei 2015
- * Update: Asri Maspupah
- * Tanggal Update: 7 Mei 2021
  * Update : Temmy Mahesa Ridwan
  * Tanggal Update : 7 Mei 2021
  */
 
-//#include <stdbool.h>
-#include "boolean.h"
-#include <stdio.h>
-#include <conio.h>
-#include <stdlib.h>
-#include <ctype.h>
 #include "queueDinamis.h"
-
 
 /***** Manajemen memori *****/
 /* Mengirimkan address hasil alokasi sebuah elemen dengan info X.
@@ -27,7 +12,7 @@
  * P adalah pointer yang menunjuk ke node Queue sebagai hasil alokasi.
  * Jika alokasi gagal, modul mengembalikan NULL.
  */
-addrNQ Alokasi(infoqueue X){
+addrNQ AlokasiQ(infoqueue X){
 	addrNQ p;
 	
 	p = (addrNQ)malloc(sizeof(NodeQueue));
@@ -44,7 +29,7 @@ addrNQ Alokasi(infoqueue X){
  * I.S.: P terdefinisi.
  * F.S.: P dikembalikan ke sistem.
  */
-void Dealokasi(addrNQ *P){
+void DealokasiQ(addrNQ *P){
 	free(*P);
 }
 
@@ -93,7 +78,7 @@ void deQueue(Queue *Q){
 	}else{
 		p = Front(*Q);
 		Front(*Q) = Front(*Q)->next;
-		Dealokasi(&p);  
+		DealokasiQ(&p);  
 	}
 }
 
@@ -103,7 +88,7 @@ void deQueue(Queue *Q){
 void enQueue(Queue *Q, infoqueue data){
 	addrNQ p, last;
 	
-	p = Alokasi(data);
+	p = AlokasiQ(data);
 	if(Rear(*Q) == nil){
 		Front(*Q) = Rear(*Q) = p;
 	}else{
@@ -117,8 +102,9 @@ void enQueue(Queue *Q, infoqueue data){
 	}
 }
 
-/* Mengirimkan banyaknya elemen queue jika Q berisi atrian atau 
-   mengirimkan 0 jika Q kosong 
+/* 
+	Mengirimkan banyaknya elemen queue jika Q berisi atrian atau 
+   	mengirimkan 0 jika Q kosong 
 */ 
 int NBElmt(Queue Q){
 	addrNQ P;

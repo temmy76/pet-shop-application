@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "queuedinamis.h": "c",
+        "list1.h": "c",
+        "LIST1.H": "cpp",
+        "LIST1.C": "cpp"
+    }
+}

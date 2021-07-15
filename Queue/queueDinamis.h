@@ -19,6 +19,7 @@
 #include <conio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include "LIST1.H"
 
 #define Front(Q) (Q).Front 
 #define Rear(Q) (Q).Rear 
@@ -28,10 +29,22 @@
 #define nil NULL
 
 /* Definisi elemen dan address */ 
-typedef int infoqueue; 
+typedef struct{
+   /* kategori penyakit si hewan ( Ringan, Sedang, Berat ) ditentukan dari nilai Penyakit */
+   char *KatPenyakit; 
+    /* List penyakit berupa String dan akan di define menjadi integer yang mana akan digunakan sebagai pertimbangan untuk priority queue */
+   List namaPenyakit;
+   /* penampung nilai penyakit pada linkedlist namaPenyakit*/
+   int nilaiSakit;
+}sakit;
+typedef struct infoqueue {
+   char *nama; // Nama Pendaftar
+   int waktuKedatangan; // waktu kedatangan pendaftar ke dokter
+   sakit penyakit;
+}infoqueue;
 typedef struct NodeQueue *addrNQ;
 typedef struct NodeQueue {
-    infoqueue info; // address Node NBTree
+    infoqueue info; 
     addrNQ next;
 } NodeQueue;
 typedef struct {
@@ -45,13 +58,13 @@ typedef struct {
  * P adalah pointer yang menunjuk ke node Queue sebagai hasil alokasi.
  * Jika alokasi gagal, modul mengembalikan NULL.
  */
-addrNQ Alokasi(infoqueue X);
+addrNQ AlokasiQ(infoqueue X);
 
 /* Melakukan dealokasi elemen P (pointer menunjuk ke alamat node queue).
  * I.S.: P terdefinisi.
  * F.S.: P dikembalikan ke sistem.
  */
-void Dealokasi(addrNQ *P);
+void DealokasiQ(addrNQ *P);
 
 /***** Manajemen Queue *****/
 /* Membuat sebuah Queue kosong dengan Front(Q) = Nil dan Rear (Q) = Nil 
