@@ -100,5 +100,6 @@ int NBElmt(Queue Q);
 /*Menampilkan info queue, jika Q kosong akan menampilkan nil*/
 void printInfoQueue(Queue Q);
 
+void InsertPelanggan;
 
 #endif // QUEUE_H

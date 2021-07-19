@@ -139,3 +139,20 @@ void printInfoQueue(Queue Q){
 		printf("[ %d ] - \n", Info(p));
 	}
 }
+
+void InsertPelanggan(Queue Q){
+	int banyak,i=0;
+	
+	system("cls");
+	printf("[==========================]\n");
+	printf("[--  Tambah Pendaftaran  --]\n");
+	printf("[==========================]\n\n");
+    printf("[=] Nama 	: \n");
+    printf("[=] Jam Kedatangan 	: \n");
+    printf("[=] Jumlah Penyakit	: "); scanf("%d",&banyak);
+    while(i < banyak){
+    	printf("[=] Nama Penyakit 	: \n");
+    	i++;
+	}
+    getch();
+}
