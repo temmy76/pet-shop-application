@@ -101,13 +101,28 @@ int NBElmt(Queue Q);
 
 /*Menampilkan info queue, jika Q kosong akan menampilkan nil*/
 void printInfoQueue(Queue Q);
-// sementara
-void InsertPelanggan(Queue Q);
-void ProsesPelanggan(Queue Q);
-void enQueuePrior(Queue *Q, infoqueue data);
-int hitungEstimasiTunggu(Queue Q, addrNQ data);
-int hitungEstimasiSelesai(Queue Q, addrNQ data);
-int hitungLamaBeratPenyakit(Queue Q);
-void CheckPenyakit(sakit S);
-int HitungPoinPenyakit(sakit S);
+/* Menghitung waktu lama penyakit untuk memproses grooming
+   I.S.: Lama proses untuk kucing tidak diketahui
+   F.S.: Mengembalikan nilai lama proses grooming */
+int hitungLamaPenyakit(sakit S);
+
+/* Mengecek kategori dari setiap penyakit
+   I.S.: Kategori penyakit masih kosong
+   F.S.: Kategori dari setiap penyakit diketahui */
+void checkPenyakit(sakit S);
+
+/* Menghitung poin dari list penyakit
+   I.S.: nilai sakit kosong
+   F.S.: Mengembalikan nilai poin nilai penyakit */
+int hitungPoinPenyakit(sakit S);
+
+/* Memperlihatkan tabel penyakit dengan poin sakit
+   I.S.: tidak ada tabel
+   F.S.: Mengetahui poin-poin dari setiap penyakit */
+void lihatTabelPenyakit();
+
+/* Memperlihatkan menu dari aplikasi
+   I.S.: layar kosong
+   F.S.: Mengetahui fitur-fitur aplikasi */
+void menu();
 #endif // QUEUE_H

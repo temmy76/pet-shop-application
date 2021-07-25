@@ -5,6 +5,9 @@
  */
 
 #include "queueDinamis.h"
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
 /***** Manajemen memori *****/
 /* Mengirimkan address hasil alokasi sebuah elemen dengan info X.
@@ -139,100 +142,142 @@ void printInfoQueue(Queue Q){
 		printf("[ %d ] - \n", Info(p));
 	}
 }
-
-void gotoxy(int x, int y) {
-    /* Kursor untuk menunjuk pada titik (x,y) tertentu */
-
-      COORD coord;
-      coord.X = x;
-      coord.Y = y;
-      SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}
-
-/*
- * Author : Temmy Mahesa  Ridwan
- * menambah data pelanggan serta mengurutkan Data Pelanggan berdasarkan jumlah nilaiPenyakit 
- * apabila nilaiPenyakit pelanggan nya lebih besar dari pada pelanggan yang duluan datang 
- * maka pelanggan dengan nilaiPenyakit terbesar didahulukan terkecuali pelanngan pertama pada antrian
- * IS : Antian mungkin kosong
- * FS : Antrian sudah disort dengan ketentuan apabila nilaiPenyakit nya lebih besar 
- *      maka pelanggan tersebut didahulukan, terkecuali pelanggan paling pertama
- */  
-void enQueuePrior(Queue *Q, infoqueue data){
-	addrNQ p;
-	p = AlokasiQ(data);
-	// printf("test ");
-	if(Front(*Q) == nil){ // check apa bila kosong
-		enQueue(Q, data);
-		// printf("kosong\n");
-	}else if(Front(*Q)->next == nil){ // check apabila queue cuma satu
-		 enQueue(Q, data);
-		//  printf("data cuma 1\n");
-	}else{
-		addrNQ curr, prev, temp;
-		curr = Q->Front->next;
-		if (curr->info.penyakit.nilaiSakit < data.penyakit.nilaiSakit) {
-			p->next = curr;
-			Q->Front->next = p;
-			curr = p;
-		} else {
-			addrNQ current = curr;
-			while ((current->next != NULL) && (current->next->info.penyakit.nilaiSakit > data.penyakit.nilaiSakit)) {
-				current = current->next;
-			}
-
-			p->next = current->next;
-			current->next = p;
-		}
-		// printf("data banyak terakhir\n");
-
-		addrNQ last = Front(*Q);
-		while(last != nil){
-			last = last->next;
-		}
-		Rear(*Q) = last;
-		
-	}
-}
-
-/* Author : Temmy Mahesa Ridwan
- * Menghitung Estimasi waktu tunggu pada antrian pelanggan
- * I.S.: Waktu Tunggu pelanggan belum di ketahui 
- * F.S.: Mengembalikan nilai integer waktuTunggu 
+/* Author : Nuno Alwi Azimah
+ * Menghitung waktu lama penyakit untuk memproses grooming
+ * I.S.: Lama proses untuk kucing tidak diketahui
+ * F.S.: Mengembalikan nilai lama proses grooming
+ *
+ * -- pseudo code --
+ * kamus
+ *
+ * algorima
+ * return S.nilaisakti * 15
  */
-int hitungEstimasiTunggu(Queue Q, addrNQ data){
-  	if(data == Q.Front){
-    	return 0;
-    }else{
-      	addrNQ curr, prev;
-      	curr = Q.Front;
-      	while(curr != data){
-        	prev = curr;
-          	curr = curr->next;
-        }
-      	curr->info.waktuTunggu = prev->info.waktuSelesai - curr->info.waktuKedatangan;
-      	return curr->info.waktuTunggu;
-    }
+int hitungLamaPenyakit(sakit S){
+	return S.nilaisakit * 15;
 }
-/* Author : Temmy Mahesa Ridwan
- * Menghitung Estimasi waktuSelesai pada saat pelayanan
- * I.S.: Waktu Selesai Pelayanan belum di ketahui 
- * F.S.: Mengembalikan nilai integer waktuSelesai
+
+/* Author : Nuno Alwi Azimah
+ * Mengecek kategori dari setiap penyakit
+ * I.S.: Kategori penyakit masih kosong
+ * F.S.: Kategori dari setiap penyakit diketahui
+ *
+ * -- pseudo code --
+ * kamus
+ * list : address
+ *
+ * algorima
+ * adress = S.namaPenyakit->head
+ * while(list != Nil) then
+ *   if(list.info->nama = "gatal" OR list.info->nama = "jamuran" OR list.info->nama = "mencret") then list.info->kategori <- "Ringan"
+ *   else if(list.info->nama = "diabetes" OR list.info->nama = "rabies" OR list.info->nama = "cacing hati") then list.info->kategori <- "Sedang"
+ *   else if(list.info->nama = "kanker" OR list.info->nama = "fiv" OR list.info->nama = "infeksi pernapasan") then list.info->kategori <- "Berat"
+ *   else then list.info->kategori <- "Baru"
+ *   {end if}
+ *   
+ *   list <- list->next
+ * {end while}
  */
-int hitungEstimasiSelesai(Queue Q, addrNQ data){
-  	if(data == Q.Front){
-    	data->info.waktuSelesai = data->info.waktuKedatangan + hitungLamaPenyakit(data->info.penyakit);
-        return data->info.waktuSelesai;
-	}else{
-      	addrNQ curr, prev;
-      	curr = Q.Front;
-      	while(curr != data){
-          	prev =  curr;
-          	curr = curr->next;
-        }
-      	data->info.waktuSelesai = data->info.waktuKedatangan + hitungLamaPenyakit(data->info.penyakit);
-        return data->info.waktuSelesai;
+void checkPenyakit(sakit S){
+  	address list = S.namaPenyakit->head;
+	
+  	while(list != Nil){
+      	if(strcmp(tolower(list.info->nama),"gatal") == 0|| strcmp(tolower(list.info->nama),"jamuran") == 0 || strcmp(tolower(list.info->nama),"mencret") == 0 ) list.info->kategori = "Ringan";
+      	else if(strcmp(tolower(list.info->nama),"diabetes") == 0 || strcmp(tolower(list.info->nama),"rabies") == 0 || strcmp(tolower(list.info->nama),"cacing hati") == 0) list.info->kategori = "Sedang";
+      	else if(strcmp(tolower(list.info->nama),"kanker") == 0 || strcmp(tolower(list.info->nama),"fiv") == 0 || strcmp(tolower(list.info->nama),"infeksi pernafasan") == 0) list.info->kategori = "Berat";
+      	else list.info->kategori = "Baru"
+    	
+        list = list->next;
     }
 }
 
+/* Author : Nuno Alwi Azimah
+ * Menghitung poin dari list penyakit
+ * I.S.: nilai sakit kosong
+ * F.S.: Mengembalikan nilai poin nilai penyakit
+ *
+ * -- pseudo code --
+ * kamus
+ * list : address
+ *
+ * algorima
+ * adress = S.namaPenyakit->head
+ * while(list != Nil) then
+ *   if(list.info->nama = "gatal" OR list.info->nama = "jamuran" OR list.info->nama = "mencret") then S.nilaisakit = S.nilaisakit + 1
+ *   else if(list.info->nama = "diabetes" OR list.info->nama = "rabies" OR list.info->nama = "cacing hati") then S.nilaisakit = S.nilaisakit + 3
+ *   else if(list.info->nama = "kanker" OR list.info->nama = "fiv" OR list.info->nama = "infeksi pernapasan") then S.nilaisakit = S.nilaisakit + 5
+ *   else then S.nilaisakit = S.nilaisakit + 0
+ *   {end if}
+ *   
+ *   list <- list->next
+ * {end while}
+ * return S.nilaisakit
+ */
+int hitungPoinPenyakit(sakit S){
+	address list = S.namaPenyakit->head;
+  
+  	while(list != Nil){
+      	if(strcmp(tolower(list.info->nama),"gatal") == 0|| strcmp(tolower(list.info->nama),"jamuran") == 0 || strcmp(tolower(list.info->nama),"mencret") == 0 ) S.nilaisakit += 1;
+  		else if(strcmp(tolower(list.info->nama),"diabetes") == 0 || strcmp(tolower(list.info->nama),"rabies") == 0 || strcmp(tolower(list.info->nama),"cacing hati") == 0) S.nilaisakit += 3;
+  		else if(strcmp(tolower(list.info->nama),"kanker") == 0 || strcmp(tolower(list.info->nama),"fiv") == 0 || strcmp(tolower(list.info->nama),"infeksi pernafasan") == 0) S.nilaisakit += 5;
+      	else S.nilaisakit += 0;
+      	
+        list = list->next;
+    }
+  	return S.nilaisakit
+}
 
+/* Author : Nuno Alwi Azimah
+ * Memperlihatkan tabel penyakit dengan poin sakit
+ * I.S.: tidak ada tabel
+ * F.S.: Mengetahui poin-poin dari setiap penyakit
+ *
+ * -- pseudo code --
+ * kamus
+ *
+ * algorima
+ * output ("kategori || nama || poin")
+ */
+void lihatTabelPenyakit(){
+    system("cls");
+	printf("[===========================================]\n");
+	printf("[------------  Tabel  Penyakit  ------------]\n");
+	printf("[===========================================]\n\n");
+	printf("||=========================================||\n");
+  	printf("|| Kategori ||        Nama        || Point ||\n");
+  	printf("||  Ringan  || Gatal              ||   1   ||\n");
+    printf("||  Ringan  || Jamuran            ||   1   ||\n");
+    printf("||  Ringan  || Mencret            ||   1   ||\n");
+    printf("||  Sedang  || Diabetes           ||   3   ||\n");
+    printf("||  Sedang  || Rabies             ||   3   ||\n");
+    printf("||  Sedang  || Cacing Hati        ||   3   ||\n");
+    printf("||  Berat   || Kanker             ||   5   ||\n");
+    printf("||  Berat   || FIV                ||   5   ||\n");
+    printf("||  Berat   || Infeksi Pernafasan ||   5   ||\n");
+  	printf("||=========================================||\n");
+}
+
+/* Author : Nuno Alwi Azimah
+ * Memperlihatkan menu dari aplikasi
+ * I.S.: layar kosong
+ * F.S.: Mengetahui fitur-fitur aplikasi
+ *
+ * -- pseudo code --
+ * kamus
+ *
+ * algorima
+ *
+ */
+void menu(){
+	system("cls");
+    printf("===========================\n");
+    printf("Welcome To UDUSDDH Pet Shop\n");
+    printf("===========================\n\n");
+    printf("Option Pet Shop : \n");
+    printf("1. Lihat Tabel Penyakit\n");
+    printf("2. Tambah Pendaftar\n");
+    printf("3. Lihat Pendaftar\n");
+    printf("4. Proses Pendaftar\n");
+    printf("5. Exit Program\n\n");
+}
+>>>>>>> d2c1a9cae111f4c36710ed9759e57bb9454b7be5
