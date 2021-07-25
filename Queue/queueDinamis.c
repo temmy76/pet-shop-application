@@ -50,7 +50,7 @@ void CreateQueue(Queue *Q){
    mengirimkan true, jika Queue Kosong yaitu Front(Q) = Nil dan Rear (Q) = Nil
    Sebaliknya false
 */
-boolean IsQueueEmpty(Queue Q){
+bool IsQueueEmpty(Queue Q){
 	// if(Front(Q) == nil && Rear(Q) == nil){
 	// 	return true;
 	// } else {
@@ -141,6 +141,44 @@ void printInfoQueue(Queue Q){
 		}
 		printf("[ %d ] - \n", Info(p));
 	}
+}
+
+
+void InsertPelanggan(Queue *Q){
+	int banyak,i ;
+	infoqueue X;
+	infotype Z;
+	system("cls");
+	printf("[==========================]\n");
+	printf("[--  Tambah Pendaftaran  --]\n");
+	printf("[==========================]\n\n");
+    printf("[=] Nama 	: "); scanf("%s \n", X.nama); fflush(stdin);
+    printf("[=] Jam Kedatangan 	: "); scanf("%d \n" , &X.waktuKedatangan); fflush(stdin);
+    printf("[=] Jumlah Penyakit	: "); scanf("%d \n",&banyak); fflush(stdin);
+	CreateList(&X.penyakit.namaPenyakit);
+    for(i = 0; i < banyak; i++){
+    	printf("[=] Nama Penyakit 	: "); scanf("%s", Z.nama); fflush(stdin);
+		InsVLast(&X.penyakit.namaPenyakit , Z);
+	}
+	enQueuePrior(Q, X);
+}
+
+void ProsesPelanggan(Queue Q){
+  	system("cls");
+	printf("[==========================]\n");
+	printf("[----  Proses Antrian  ----]\n");
+	printf("[==========================]\n\n");
+
+    printf("[=] Nama 		: \n"); 
+    printf("[=] Jam Kedatangan 	: \n");
+    printf("[=] Jumlah Penyakit	: \n");
+    printf("[=] Penyakit		: \n");
+    printf("[=] Kategori Penyakit	: \n");
+    printf("[=] Estimasi Proses	: \n");
+    printf("[=] Estimasi Selesai	: \n");
+    
+    printf("Apakah akan telah diobati ? [Y/N]");
+    getch();
 }
 
 void gotoxy(int x, int y) {
@@ -238,6 +276,41 @@ int hitungEstimasiSelesai(Queue Q, addrNQ data){
     }
 }
 
+void daftarPelanggan(Queue Q){
+	addrNQ p;
+	p = Q.Front;
+	address temp = p->info.penyakit.namaPenyakit.First;
+	int i = 1;
+	system("cls");
+	printf("[==========================]\n");
+	printf("[----  Lihat  Antrian  ----]\n");
+	printf("[==========================]\n\n");
+
+	
+	if(p == nil){
+		prinf("Tidak ada Antrian \n");
+	}else{
+			printf("[--------------------------]\n");
+			printf("[       Antrian Utama      ]\n");
+			printf("[--------------------------]\n\n");
+		while(p != nil){
+			printf("[Antrian ke %d]\n", i);
+			printf("[=] Nama 		: %s \n", p->info.nama);
+			printf("[=] Jam Kedatangan 	: %d\n", p->info.waktuKedatangan);
+			printf("[=] Jumlah Penyakit	: %d\n", NbElmt(p->info.penyakit.namaPenyakit));
+			printf("[=] Penyakit		: ");
+			while(temp != NULL){
+				printf(" %s (%s), ", temp->info.nama, temp->info.kategori);
+				temp = temp->next;
+			}
+			printf("[=] Estimasi Tunggu		: %d\n", hitungEstimasiTunggu(Q, p));
+			printf("[=] Estimasi Selesai	: %d\n\n", hitungEstimasiSelesai(Q, p));
+			i++;
+		}
+	}
+	
+}
+
 /* Author : Nuno Alwi Azimah
  * Menghitung waktu lama penyakit untuk memproses grooming
  * I.S.: Lama proses untuk kucing tidak diketahui
@@ -278,10 +351,10 @@ void checkPenyakit(sakit S){
   	address list = S.namaPenyakit.First;
 	
   	while(list != Nil){
-      	if(strcmp(tolower(list->info.nama),"gatal") == 0 || strcmp(tolower(list->info.nama),"jamuran") == 0 || strcmp(tolower(list->info.nama),"mencret") == 0 ) list->info.kategori = "Ringan";
-      	else if(strcmp(tolower(list->info.nama),"diabetes") == 0 || strcmp(tolower(list->info.nama),"rabies") == 0 || strcmp(tolower(list->info.nama),"cacing hati") == 0) list->info.kategori = "Sedang";
-      	else if(strcmp(tolower(list->info.nama),"kanker") == 0 || strcmp(tolower(list->info.nama),"fiv") == 0 || strcmp(tolower(list->info.nama),"infeksi pernafasan") == 0) list->info.kategori = "Berat";
-      	else list->info.kategori = "Baru";
+      	if(strcmp(tolower(list->info.nama),"gatal") == 0 || strcmp(tolower(list->info.nama),"jamuran") == 0 || strcmp(tolower(list->info.nama),"mencret") == 0 ) strcpy(list->info.kategori, "Ringan");
+      	else if(strcmp(tolower(list->info.nama),"diabetes") == 0 || strcmp(tolower(list->info.nama),"rabies") == 0 || strcmp(tolower(list->info.nama),"cacing hati") == 0) strcpy(list->info.kategori, "Sedang");
+      	else if(strcmp(tolower(list->info.nama),"kanker") == 0 || strcmp(tolower(list->info.nama),"fiv") == 0 || strcmp(tolower(list->info.nama),"infeksi pernafasan") == 0) strcpy(list->info.kategori, "Berat");
+      	else strcpy(list->info.kategori, "Baru");
         list = list->next;
     }
 }

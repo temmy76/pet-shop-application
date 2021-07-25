@@ -14,12 +14,11 @@
 #define QUEUE_H
 
 #include <stdbool.h>
-#include "boolean.h"
 #include <stdio.h>
 #include <conio.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include "LIST1.H"
+#include "../LinkedList/LIST1.H"
 #include <string.h>
 #include <windows.h>
 
@@ -79,7 +78,7 @@ void CreateQueue(Queue *Q);
    mengirimkan true, jika Queue Kosong yaitu Front(Q) = Nil dan Rear (Q) = Nil
    Sebaliknya false
 */
-boolean IsQueueEmpty(Queue Q);
+bool IsQueueEmpty(Queue Q);
 
 /* Memasukkan info baru ke dalam Queue dengan aturan FIFO */
 /* I.S. Q mungkin kosong atau Q mungkin berisi antrian */ 
@@ -98,13 +97,48 @@ void deQueue(Queue *Q);
 */ 
 int NBElmt(Queue Q);
 
-
 /*Menampilkan info queue, jika Q kosong akan menampilkan nil*/
 void printInfoQueue(Queue Q);
 
+/* Author : Wili Akbar Nugraha
+ * Menambahkan pelanggan ke dalam proses antrian
+ * I.S.: Queue Mungkin kosong 
+ * F.S.: Antrian berhasil masuk ke Queue
+ */
+void InsertPelanggan(Queue *Q);
+
+/* Author : Wili Akbar Nugraha
+ * Memproses pelanggan ( deQueue )
+ * I.S.: Queue Mungkin kosong 
+ * F.S.: Pelanggan antrian berhasil keluar dari Queue ( antrian )
+ */
+
+void ProsesPelanggan(Queue Q);
+/* menambah data pelanggan serta mengurutkan Data Pelanggan berdasarkan jumlah nilaiPenyakit 
+ * apabila nilaiPenyakit pelanggan nya lebih besar dari pada pelanggan yang duluan datang 
+ * maka pelanggan dengan nilaiPenyakit terbesar didahulukan terkecuali pelanngan pertama pada antrian
+ * IS : Antian mungkin kosong
+ * FS : Antrian sudah disort dengan ketentuan apabila nilaiPenyakit nya lebih besar 
+ *      maka pelanggan tersebut didahulukan, terkecuali pelanggan paling pertama
+ */  
 void enQueuePrior(Queue *Q, infoqueue data);
+/* Menghitung Estimasi waktu tunggu pada antrian pelanggan
+ * I.S.: Waktu Tunggu pelanggan belum di ketahui 
+ * F.S.: Mengembalikan nilai integer waktuTunggu 
+ */
 int hitungEstimasiTunggu(Queue Q, addrNQ data);
+
+/* Menghitung Estimasi waktu tunggu pada antrian pelanggan
+ * I.S.: Waktu Tunggu pelanggan belum di ketahui 
+ * F.S.: Mengembalikan nilai integer waktuTunggu 
+ */
 int hitungEstimasiSelesai(Queue Q, addrNQ data);
+
+/* Menampilkan List penyakit ke layar
+ * IS : list mungkin kosong
+ * FS : List penyakit tertampil di layar 
+*/
+void daftarPelanggan(Queue Q);
 /* Menghitung waktu lama penyakit untuk memproses grooming
    I.S.: Lama proses untuk kucing tidak diketahui
    F.S.: Mengembalikan nilai lama proses grooming */

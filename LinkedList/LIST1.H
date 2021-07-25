@@ -10,9 +10,10 @@
 #ifndef list1_H
 #define list1_H 
 
-#include "boolean.h"
+// #include "bool.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 #define Nil  NULL
 #define Info(P) (P)->info
 #define Next(P) (P)->next
@@ -39,7 +40,7 @@ typedef struct {
 
 /* ** Prototype   **  */
 /* ** Test List Kosong **  */
-boolean ListEmpty(List  L);                        
+bool ListEmpty(List  L);                        
 /*  Mengirim true jika List kosong  */
 
 /* Pembuatan  List Kosong  */
@@ -67,7 +68,7 @@ address Search1(List L, infotype  X);
 /* Jika ada, mengirimkan  address elemen tersebut	 */
 /* Jika  tidak ada, mengirimkan Nil 			 */
 
-boolean FSearch(List L, address P);
+bool FSearch(List L, address P);
 /* Mencari apakah  ada elemen List yang  beralamat   P   */
 /* Mengirimkan true jika ada, false jika tidak ada  	 */
 

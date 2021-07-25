@@ -11,14 +11,14 @@
 #ifndef list1_C
 #define list1_C 
 
-#include "boolean.h"
+// #include "bool.h"
 #include "list1.h"
 #include <stdlib.h>
 
 
 /* ** Prototype   **  */
 /* ** Test List Kosong **  */
-boolean ListEmpty(List  L)                        
+bool ListEmpty(List  L)                        
 {  /*  Mengirim true jika List kosong  */
 
    	return(First(L)==Nil);	
@@ -59,12 +59,12 @@ address Search1(List L, infotype  X)
 {  /* Mencari apakah  ada elemen list dengan info(P)=X   */
    /* Jika ada, mengirimkan  address dgn info(P)=X       */
    /* Jika  tidak ada, mengirimkan Nil 			 */
-   /* Skema dengan boolean. Berlaku untuk List kosong  	 */
+   /* Skema dengan bool. Berlaku untuk List kosong  	 */
    address  P=First(L); 
-   boolean found=false;
+   bool found=false;
    
    while((P!=Nil)&&(!found))  { 
-	   if(Info(P)==X) {
+	   if(Info(P).nama == X.nama) {
 		{  found=true;
 		   }
 	   }   
@@ -80,32 +80,32 @@ address Search2(List L, infotype  X)
 {  /* Mencari apakah  ada elemen list dengan info(P)=X   */
    /* Jika ada, mengirimkan  address dgn info(P)=X       */
    /* Jika  tidak ada, mengirimkan Nil 			 */
-   /* Skema tanpa boolean. Tdk berlaku u/ List kosong  	 */
+//    /* Skema tanpa bool. Tdk berlaku u/ List kosong  	 */
    address  P; 
-   if(First(L)!=Nil){
-   	return Nil;
-   } else {
-   	P=First(L);
-   	while((Next(P)!=Nil)&&(Info(P)!=X)) {
-	      P=Next(P);   
-   	} /* Next(P)==Nil or Info(P)==X */
-   	if(Info(P)==X)  {
-   	    return P;	
-   	}else {
-   	    return Nil;
-	  }
-   }
+//    if(First(L)!=Nil){
+//    	return Nil;
+//    } else {
+//    	P=First(L);
+//    	while((Next(P)!=Nil)&&(Info(P)!=X)) {
+// 	      P=Next(P);   
+//    	} /* Next(P)==Nil or Info(P)==X */
+//    	if(Info(P)==X)  {
+//    	    return P;	
+//    	}else {
+//    	    return Nil;
+// 	  }
+//    }
    return P;
 }	   
    
 
-boolean FSearch(List L, address P)
+bool FSearch(List L, address P)
 { /* Mencari apakah ada elemen List yang beralamat P  */
   /* Mengirimkan true jika ada, false jika tidak ada  */
   /* List Tidak mungkin kosong  */
 
   address PTemp=First(L);
-  boolean found=false;
+  bool found=false;
   
   while((PTemp!=Nil)&&(!found)){
      if(PTemp==P) {
@@ -129,21 +129,22 @@ address SearchPrec(List L, infotype X)
   address Prec;	
   address P;
   
-  if(Next(P)==Nil)  { /* List hanya berisi 1 elemen */
-    Prec=Nil;
-  } else { 
-	  P=First(L);
-	  while((Next(P)!=Nil) &&(Info(P)!=X)) {
-	      Prec=P;
-              P=Next(P);		 	      
-  	   }  /* Next(P)==Nil or Info(P)==X */
+//   if(Next(P)==Nil)  { /* List hanya berisi 1 elemen */
+//     Prec=Nil;
+//   } else { 
+// 	  P=First(L);
+// 	  while((Next(P)!=Nil) &&(Info(P)!=X)) {
+// 	      Prec=P;
+//               P=Next(P);		 	      
+//   	   }  /* Next(P)==Nil or Info(P)==X */
   
-  	   if(Info(P)==X){ /* Ketemu Info (P)== X */
-  	        return Prec;
-  	   } else {
-  	        return Nil;  /* tidak ada X di List */
-  	   }
-     } /* else */
+//   	   if(Info(P)==X){ /* Ketemu Info (P)== X */
+//   	        return Prec;
+//   	   } else {
+//   	        return Nil;  /* tidak ada X di List */
+//   	   }
+//      } /* else */
+	 return P;
 }
 
 /* ** PRIMITIF BERDASARKAN NILAI ** */
@@ -258,13 +259,13 @@ void DelP(List *L, infotype X)
   /*         tetap. List mungkin menjadi kosomg karena penghapusan   */
     address  P=First(*L);
 
-    while((Next(P)!=Nil) && (Info(P)!=X)){
-          P=Next(P);
-    } /*Next(P)=Nil or Info(P)= X */
+    // while((Next(P)!=Nil) && (Info(P)!=X)){
+    //       P=Next(P);
+    // } /*Next(P)=Nil or Info(P)= X */
     
-    if(Info(P)==X) {
-       Dealokasi(&P);
-    }
+    // if(Info(P)==X) {
+    //    Dealokasi(&P);
+    // }
 }
 
 void DelLast(List *L, address *P)
@@ -341,101 +342,101 @@ int NbElmt(List L)
        return NbEl;		      
 }
 
-infotype Max(List L)
-{  /* Mengirimkan nilai info(P) yang maksimum */
+// infotype Max(List L)
+// {  /* Mengirimkan nilai info(P) yang maksimum */
 
-   address P;	
-   infotype MMax;
-   if(!ListEmpty(L))
-   {      P=First(L);
-	  MMax=Info(P);
-	  while(Next(P)!=Nil) { 
-	 	P=Next(P);
-		if(Info(P)>MMax) {
-		   MMax=Info(P);	
-		}	
-	  } /* Next(P)==Nil */
-   }
-  return MMax;	  
-}
+//    address P;	
+//    infotype MMax;
+//    if(!ListEmpty(L))
+//    {      P=First(L);
+// 	  MMax=Info(P);
+// 	  while(Next(P)!=Nil) { 
+// 	 	P=Next(P);
+// 		if(Info(P)>MMax) {
+// 		   MMax=Info(P);	
+// 		}	
+// 	  } /* Next(P)==Nil */
+//    }
+//   return MMax;	  
+// }
 
-address AdrMax(List L)
-{  /* mengirimkan address P, dengan info (P) yang maksimum */
+// address AdrMax(List L)
+// {  /* mengirimkan address P, dengan info (P) yang maksimum */
 
-   address PMax,P;
-   infotype Max;
-   if(!ListEmpty(L)){
-	   P=First(L);
-	   Max=Info(P);
-	   while(Next(P) != Nil) { 
-		   P=Next(P);
-		   if(Info(P)>Max) {
-			   Max = Info(P);
-			   PMax=P;
-		   }
-	   } /* Next(P)==Nil */
-   }
-   return PMax;
-}
+//    address PMax,P;
+//    infotype Max;
+//    if(!ListEmpty(L)){
+// 	   P=First(L);
+// 	   Max=Info(P);
+// 	   while(Next(P) != Nil) { 
+// 		   P=Next(P);
+// 		   if(Info(P)>Max) {
+// 			   Max = Info(P);
+// 			   PMax=P;
+// 		   }
+// 	   } /* Next(P)==Nil */
+//    }
+//    return PMax;
+// }
 
 
-infotype Min(List L)
-{ /* mengirimkan nilai info(P), yang minimum    */
+// infotype Min(List L)
+// { /* mengirimkan nilai info(P), yang minimum    */
 
-   address P;	
-   infotype MMin;
-   if(!ListEmpty(L))
-   {      P=First(L);
-	  MMin=Info(P);
-	  while(Next(P)!=Nil) { 
-	 	   P=Next(P);
-		   if(Info(P)<MMin) {
-		        MMin=Info(P);	
-		   }	
-	  } /* Next(P)==Nil */
-    } 
-    return MMin;	  
-}
+//    address P;	
+//    infotype MMin;
+//    if(!ListEmpty(L))
+//    {      P=First(L);
+// 	  MMin=Info(P);
+// 	  while(Next(P)!=Nil) { 
+// 	 	   P=Next(P);
+// 		   if(Info(P)<MMin) {
+// 		        MMin=Info(P);	
+// 		   }	
+// 	  } /* Next(P)==Nil */
+//     } 
+//     return MMin;	  
+// }
 	
 
-address AdrMin(List L)
-{ /* mengirimkan address P, dengan info(P) yang minimum */
+// address AdrMin(List L)
+// { /* mengirimkan address P, dengan info(P) yang minimum */
 	
-   address PMin,P;
-   infotype Min;
-   if(!ListEmpty(L)){
-	   P=First(L);
-	   Min=Info(P);
-	   while(Next(P) != Nil) { 
-	      P=Next(P);
-	      if(Info(P)<Min) {
-			   Min = Info(P);
-			   PMin=P;
-		   }
-  	   }
-   }
-   return PMin;
-}
+//    address PMin,P;
+//    infotype Min;
+//    if(!ListEmpty(L)){
+// 	   P=First(L);
+// 	   Min=Info(P);
+// 	   while(Next(P) != Nil) { 
+// 	      P=Next(P);
+// 	      if(Info(P)<Min) {
+// 			   Min = Info(P);
+// 			   PMin=P;
+// 		   }
+//   	   }
+//    }
+//    return PMin;
+// }
 
-float Average(List L)
-{  /* mengirimkan nilai rata-rata info(P)	*/
-	address P;
-	infotype NbEl,Count;
-	float avg;
+// float Average(List L)
+// {  /* mengirimkan nilai rata-rata info(P)	*/
+// 	address P;
+// 	infotype NbEl,Count;
+// 	float avg;
 	
-	if(!ListEmpty(L)) { /* Tidak kosong */
-		P=First(L);
-		Count=Info(P);
-		NbEl=1;
-		while(Next(P)!=Nil) 
-		{  P=Next(P);
-		   Count=Count+Info(P);  		    
-		   NbEl++;
-		} /*Next(P) == Nil */
-		avg= (float)Count/(float)NbEl;
-	}
-       return avg;		
-}
+// 	if(!ListEmpty(L)) { /* Tidak kosong */
+// 		P=First(L);
+// 		Count=Info(P);
+// 		NbEl=1;
+// 		while(Next(P)!=Nil) 
+// 		{  P=Next(P);
+// 		   Count=Count+Info(P);  		    
+// 		   NbEl++;
+// 		} /*Next(P) == Nil */
+// 		avg= (float)Count/(float)NbEl;
+// 	}
+//        return avg;		
+// }
 
 /******************************************************/
 /***   		PROSES TERHADAP LIST		    ***/
