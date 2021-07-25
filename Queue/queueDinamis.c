@@ -5,6 +5,9 @@
  */
 
 #include "queueDinamis.h"
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
 /***** Manajemen memori *****/
 /* Mengirimkan address hasil alokasi sebuah elemen dengan info X.
@@ -140,19 +143,141 @@ void printInfoQueue(Queue Q){
 	}
 }
 
-void InsertPelanggan(Queue Q){
-	int banyak,i=0;
+/* Author : Nuno Alwi Azimah
+ * Menghitung waktu lama penyakit untuk memproses grooming
+ * I.S.: Lama proses untuk kucing tidak diketahui
+ * F.S.: Mengembalikan nilai lama proses grooming
+ *
+ * -- pseudo code --
+ * kamus
+ *
+ * algorima
+ * return S.nilaisakti * 15
+ */
+int hitungLamaPenyakit(sakit S){
+	return S.nilaisakit * 15;
+}
+
+/* Author : Nuno Alwi Azimah
+ * Mengecek kategori dari setiap penyakit
+ * I.S.: Kategori penyakit masih kosong
+ * F.S.: Kategori dari setiap penyakit diketahui
+ *
+ * -- pseudo code --
+ * kamus
+ * list : address
+ *
+ * algorima
+ * adress = S.namaPenyakit->head
+ * while(list != Nil) then
+ *   if(list.info->nama = "gatal" OR list.info->nama = "jamuran" OR list.info->nama = "mencret") then list.info->kategori <- "Ringan"
+ *   else if(list.info->nama = "diabetes" OR list.info->nama = "rabies" OR list.info->nama = "cacing hati") then list.info->kategori <- "Sedang"
+ *   else if(list.info->nama = "kanker" OR list.info->nama = "fiv" OR list.info->nama = "infeksi pernapasan") then list.info->kategori <- "Berat"
+ *   else then list.info->kategori <- "Baru"
+ *   {end if}
+ *   
+ *   list <- list->next
+ * {end while}
+ */
+void checkPenyakit(sakit S){
+  	address list = S.namaPenyakit->head;
 	
+  	while(list != Nil){
+      	if(strcmp(tolower(list.info->nama),"gatal") == 0|| strcmp(tolower(list.info->nama),"jamuran") == 0 || strcmp(tolower(list.info->nama),"mencret") == 0 ) list.info->kategori = "Ringan";
+      	else if(strcmp(tolower(list.info->nama),"diabetes") == 0 || strcmp(tolower(list.info->nama),"rabies") == 0 || strcmp(tolower(list.info->nama),"cacing hati") == 0) list.info->kategori = "Sedang";
+      	else if(strcmp(tolower(list.info->nama),"kanker") == 0 || strcmp(tolower(list.info->nama),"fiv") == 0 || strcmp(tolower(list.info->nama),"infeksi pernafasan") == 0) list.info->kategori = "Berat";
+      	else list.info->kategori = "Baru"
+    	
+        list = list->next;
+    }
+}
+
+/* Author : Nuno Alwi Azimah
+ * Menghitung poin dari list penyakit
+ * I.S.: nilai sakit kosong
+ * F.S.: Mengembalikan nilai poin nilai penyakit
+ *
+ * -- pseudo code --
+ * kamus
+ * list : address
+ *
+ * algorima
+ * adress = S.namaPenyakit->head
+ * while(list != Nil) then
+ *   if(list.info->nama = "gatal" OR list.info->nama = "jamuran" OR list.info->nama = "mencret") then S.nilaisakit = S.nilaisakit + 1
+ *   else if(list.info->nama = "diabetes" OR list.info->nama = "rabies" OR list.info->nama = "cacing hati") then S.nilaisakit = S.nilaisakit + 3
+ *   else if(list.info->nama = "kanker" OR list.info->nama = "fiv" OR list.info->nama = "infeksi pernapasan") then S.nilaisakit = S.nilaisakit + 5
+ *   else then S.nilaisakit = S.nilaisakit + 0
+ *   {end if}
+ *   
+ *   list <- list->next
+ * {end while}
+ * return S.nilaisakit
+ */
+int hitungPoinPenyakit(sakit S){
+	address list = S.namaPenyakit->head;
+  
+  	while(list != Nil){
+      	if(strcmp(tolower(list.info->nama),"gatal") == 0|| strcmp(tolower(list.info->nama),"jamuran") == 0 || strcmp(tolower(list.info->nama),"mencret") == 0 ) S.nilaisakit += 1;
+  		else if(strcmp(tolower(list.info->nama),"diabetes") == 0 || strcmp(tolower(list.info->nama),"rabies") == 0 || strcmp(tolower(list.info->nama),"cacing hati") == 0) S.nilaisakit += 3;
+  		else if(strcmp(tolower(list.info->nama),"kanker") == 0 || strcmp(tolower(list.info->nama),"fiv") == 0 || strcmp(tolower(list.info->nama),"infeksi pernafasan") == 0) S.nilaisakit += 5;
+      	else S.nilaisakit += 0;
+      	
+        list = list->next;
+    }
+  	return S.nilaisakit
+}
+
+/* Author : Nuno Alwi Azimah
+ * Memperlihatkan tabel penyakit dengan poin sakit
+ * I.S.: tidak ada tabel
+ * F.S.: Mengetahui poin-poin dari setiap penyakit
+ *
+ * -- pseudo code --
+ * kamus
+ *
+ * algorima
+ * output ("kategori || nama || poin")
+ */
+void lihatTabelPenyakit(){
+    system("cls");
+	printf("[===========================================]\n");
+	printf("[------------  Tabel  Penyakit  ------------]\n");
+	printf("[===========================================]\n\n");
+	printf("||=========================================||\n");
+  	printf("|| Kategori ||        Nama        || Point ||\n");
+  	printf("||  Ringan  || Gatal              ||   1   ||\n");
+    printf("||  Ringan  || Jamuran            ||   1   ||\n");
+    printf("||  Ringan  || Mencret            ||   1   ||\n");
+    printf("||  Sedang  || Diabetes           ||   3   ||\n");
+    printf("||  Sedang  || Rabies             ||   3   ||\n");
+    printf("||  Sedang  || Cacing Hati        ||   3   ||\n");
+    printf("||  Berat   || Kanker             ||   5   ||\n");
+    printf("||  Berat   || FIV                ||   5   ||\n");
+    printf("||  Berat   || Infeksi Pernafasan ||   5   ||\n");
+  	printf("||=========================================||\n");
+}
+
+/* Author : Nuno Alwi Azimah
+ * Memperlihatkan menu dari aplikasi
+ * I.S.: layar kosong
+ * F.S.: Mengetahui fitur-fitur aplikasi
+ *
+ * -- pseudo code --
+ * kamus
+ *
+ * algorima
+ *
+ */
+void menu(){
 	system("cls");
-	printf("[==========================]\n");
-	printf("[--  Tambah Pendaftaran  --]\n");
-	printf("[==========================]\n\n");
-    printf("[=] Nama 	: \n");
-    printf("[=] Jam Kedatangan 	: \n");
-    printf("[=] Jumlah Penyakit	: "); scanf("%d",&banyak);
-    while(i < banyak){
-    	printf("[=] Nama Penyakit 	: \n");
-    	i++;
-	}
-    getch();
+    printf("===========================\n");
+    printf("Welcome To UDUSDDH Pet Shop\n");
+    printf("===========================\n\n");
+    printf("Option Pet Shop : \n");
+    printf("1. Lihat Tabel Penyakit\n");
+    printf("2. Tambah Pendaftar\n");
+    printf("3. Lihat Pendaftar\n");
+    printf("4. Proses Pendaftar\n");
+    printf("5. Exit Program\n\n");
 }
