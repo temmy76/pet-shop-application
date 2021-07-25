@@ -101,6 +101,10 @@ int NBElmt(Queue Q);
 
 /*Menampilkan info queue, jika Q kosong akan menampilkan nil*/
 void printInfoQueue(Queue Q);
+
+void enQueuePrior(Queue *Q, infoqueue data);
+int hitungEstimasiTunggu(Queue Q, addrNQ data);
+int hitungEstimasiSelesai(Queue Q, addrNQ data);
 /* Menghitung waktu lama penyakit untuk memproses grooming
    I.S.: Lama proses untuk kucing tidak diketahui
    F.S.: Mengembalikan nilai lama proses grooming */
