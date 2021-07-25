@@ -20,6 +20,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include "LIST1.H"
+#include <string.h>
+#include <windows.h>
 
 #define Front(Q) (Q).Front 
 #define Rear(Q) (Q).Rear 
@@ -30,8 +32,6 @@
 
 /* Definisi elemen dan address */ 
 typedef struct{
-   /* kategori penyakit si hewan ( Ringan, Sedang, Berat ) ditentukan dari nilai Penyakit */
-   char *KatPenyakit; 
     /* List penyakit berupa String dan akan di define menjadi integer yang mana akan digunakan sebagai pertimbangan untuk priority queue */
    List namaPenyakit;
    /* penampung nilai penyakit pada linkedlist namaPenyakit*/
@@ -40,6 +40,8 @@ typedef struct{
 typedef struct infoqueue {
    char *nama; // Nama Pendaftar
    int waktuKedatangan; // waktu kedatangan pendaftar ke dokter
+   int waktuTunggu;
+   int waktuSelesai;
    sakit penyakit;
 }infoqueue;
 typedef struct NodeQueue *addrNQ;
@@ -99,6 +101,13 @@ int NBElmt(Queue Q);
 
 /*Menampilkan info queue, jika Q kosong akan menampilkan nil*/
 void printInfoQueue(Queue Q);
-
-
+// sementara
+void InsertPelanggan(Queue Q);
+void ProsesPelanggan(Queue Q);
+void enQueuePrior(Queue *Q, infoqueue data);
+int hitungEstimasiTunggu(Queue Q, addrNQ data);
+int hitungEstimasiSelesai(Queue Q, addrNQ data);
+int hitungLamaBeratPenyakit(Queue Q);
+void CheckPenyakit(sakit S);
+int HitungPoinPenyakit(sakit S);
 #endif // QUEUE_H

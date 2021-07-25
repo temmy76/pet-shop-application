@@ -18,7 +18,10 @@
 #define Next(P) (P)->next
 #define First(L) ((L).First)
 
-typedef int infotype;	                                        
+typedef struct {
+  char* nama;
+  char* kategori;
+}infotype;
 typedef struct tElmtlist *address;
 typedef struct  tElmtlist   {
 	infotype info;

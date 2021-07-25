@@ -139,3 +139,100 @@ void printInfoQueue(Queue Q){
 		printf("[ %d ] - \n", Info(p));
 	}
 }
+
+void gotoxy(int x, int y) {
+    /* Kursor untuk menunjuk pada titik (x,y) tertentu */
+
+      COORD coord;
+      coord.X = x;
+      coord.Y = y;
+      SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+/*
+ * Author : Temmy Mahesa  Ridwan
+ * menambah data pelanggan serta mengurutkan Data Pelanggan berdasarkan jumlah nilaiPenyakit 
+ * apabila nilaiPenyakit pelanggan nya lebih besar dari pada pelanggan yang duluan datang 
+ * maka pelanggan dengan nilaiPenyakit terbesar didahulukan terkecuali pelanngan pertama pada antrian
+ * IS : Antian mungkin kosong
+ * FS : Antrian sudah disort dengan ketentuan apabila nilaiPenyakit nya lebih besar 
+ *      maka pelanggan tersebut didahulukan, terkecuali pelanggan paling pertama
+ */  
+void enQueuePrior(Queue *Q, infoqueue data){
+	addrNQ p;
+	p = AlokasiQ(data);
+	// printf("test ");
+	if(Front(*Q) == nil){ // check apa bila kosong
+		enQueue(Q, data);
+		// printf("kosong\n");
+	}else if(Front(*Q)->next == nil){ // check apabila queue cuma satu
+		 enQueue(Q, data);
+		//  printf("data cuma 1\n");
+	}else{
+		addrNQ curr, prev, temp;
+		curr = Q->Front->next;
+		if (curr->info.penyakit.nilaiSakit < data.penyakit.nilaiSakit) {
+			p->next = curr;
+			Q->Front->next = p;
+			curr = p;
+		} else {
+			addrNQ current = curr;
+			while ((current->next != NULL) && (current->next->info.penyakit.nilaiSakit > data.penyakit.nilaiSakit)) {
+				current = current->next;
+			}
+
+			p->next = current->next;
+			current->next = p;
+		}
+		// printf("data banyak terakhir\n");
+
+		addrNQ last = Front(*Q);
+		while(last != nil){
+			last = last->next;
+		}
+		Rear(*Q) = last;
+		
+	}
+}
+
+/* Author : Temmy Mahesa Ridwan
+ * Menghitung Estimasi waktu tunggu pada antrian pelanggan
+ * I.S.: Waktu Tunggu pelanggan belum di ketahui 
+ * F.S.: Mengembalikan nilai integer waktuTunggu 
+ */
+int hitungEstimasiTunggu(Queue Q, addrNQ data){
+  	if(data == Q.Front){
+    	return 0;
+    }else{
+      	addrNQ curr, prev;
+      	curr = Q.Front;
+      	while(curr != data){
+        	prev = curr;
+          	curr = curr->next;
+        }
+      	curr->info.waktuTunggu = prev->info.waktuSelesai - curr->info.waktuKedatangan;
+      	return curr->info.waktuTunggu;
+    }
+}
+/* Author : Temmy Mahesa Ridwan
+ * Menghitung Estimasi waktuSelesai pada saat pelayanan
+ * I.S.: Waktu Selesai Pelayanan belum di ketahui 
+ * F.S.: Mengembalikan nilai integer waktuSelesai
+ */
+int hitungEstimasiSelesai(Queue Q, addrNQ data){
+  	if(data == Q.Front){
+    	data->info.waktuSelesai = data->info.waktuKedatangan + hitungLamaPenyakit(data->info.penyakit);
+        return data->info.waktuSelesai;
+	}else{
+      	addrNQ curr, prev;
+      	curr = Q.Front;
+      	while(curr != data){
+          	prev =  curr;
+          	curr = curr->next;
+        }
+      	data->info.waktuSelesai = data->info.waktuKedatangan + hitungLamaPenyakit(data->info.penyakit);
+        return data->info.waktuSelesai;
+    }
+}
+
+
