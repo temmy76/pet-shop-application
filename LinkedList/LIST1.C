@@ -8,9 +8,6 @@
 
 /* body dari List1.h   */
 
-#ifndef list1_C
-#define list1_C 
-
 // #include "bool.h"
 #include "list1.h"
 #include <stdlib.h>
@@ -506,6 +503,7 @@ void CopyList(List L1, List *L2)
 
 List FCopyList(List L)
 { /* Mengirimkan list yang merupakan salinan L  	*/
+    return L;
 }
 
 void CpAlokList(List Lin, List  *Lout)
@@ -674,4 +672,3 @@ void PecahList(List *L1, List *L2, List L)
 		printf("List tidak dapat dipecah ! Kosong !\n");
 	  }
 }
-#endif

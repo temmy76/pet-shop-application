@@ -288,7 +288,7 @@ void daftarPelanggan(Queue Q){
 
 	
 	if(p == nil){
-		prinf("Tidak ada Antrian \n");
+		printf("Tidak ada Antrian \n");
 	}else{
 			printf("[--------------------------]\n");
 			printf("[       Antrian Utama      ]\n");
@@ -349,12 +349,12 @@ int hitungLamaPenyakit(sakit S){
  */
 void checkPenyakit(sakit S){
   	address list = S.namaPenyakit.First;
-	
-  	while(list != Nil){
-      	if(strcmp(tolower(list->info.nama),"gatal") == 0 || strcmp(tolower(list->info.nama),"jamuran") == 0 || strcmp(tolower(list->info.nama),"mencret") == 0 ) strcpy(list->info.kategori, "Ringan");
-      	else if(strcmp(tolower(list->info.nama),"diabetes") == 0 || strcmp(tolower(list->info.nama),"rabies") == 0 || strcmp(tolower(list->info.nama),"cacing hati") == 0) strcpy(list->info.kategori, "Sedang");
-      	else if(strcmp(tolower(list->info.nama),"kanker") == 0 || strcmp(tolower(list->info.nama),"fiv") == 0 || strcmp(tolower(list->info.nama),"infeksi pernafasan") == 0) strcpy(list->info.kategori, "Berat");
-      	else strcpy(list->info.kategori, "Baru");
+
+    while(list != Nil){
+        if(strcmp(list->info.nama,"gatal") == 0 || strcmp(list->info.nama,"jamuran") == 0 || strcmp(list->info.nama,"mencret") == 0 ) strcpy(list->info.kategori, "Ringan");
+        else if(strcmp(list->info.nama,"diabetes") == 0 || strcmp(list->info.nama,"rabies") == 0 || strcmp(list->info.nama,"cacing hati") == 0) strcpy(list->info.kategori, "Sedang");
+        else if(strcmp(list->info.nama,"kanker") == 0 || strcmp(list->info.nama,"fiv") == 0 || strcmp(list->info.nama,"infeksi pernafasan") == 0) strcpy(list->info.kategori, "Berat");
+        else strcpy(list->info.kategori, "Baru");
         list = list->next;
     }
 }
@@ -383,13 +383,13 @@ void checkPenyakit(sakit S){
  */
 int hitungPoinPenyakit(sakit S){
 	address list = S.namaPenyakit.First;
-  
-  	while(list != Nil){
-      	if(strcmp(tolower(list->info.nama),"gatal") == 0|| strcmp(tolower(list->info.nama),"jamuran") == 0 || strcmp(tolower(list->info.nama),"mencret") == 0 ) S.nilaiSakit += 1;
-  		else if(strcmp(tolower(list->info.nama),"diabetes") == 0 || strcmp(tolower(list->info.nama),"rabies") == 0 || strcmp(tolower(list->info.nama),"cacing hati") == 0) S.nilaiSakit += 3;
-  		else if(strcmp(tolower(list->info.nama),"kanker") == 0 || strcmp(tolower(list->info.nama),"fiv") == 0 || strcmp(tolower(list->info.nama),"infeksi pernafasan") == 0) S.nilaiSakit += 5;
-      	else S.nilaiSakit += 0;
-      	
+
+    while(list != Nil){
+        if(strcmp(list->info.nama,"gatal") == 0|| strcmp(list->info.nama,"jamuran") == 0 || strcmp(list->info.nama,"mencret") == 0 ) S.nilaiSakit += 1;
+        else if(strcmp(list->info.nama,"diabetes") == 0 || strcmp(list->info.nama,"rabies") == 0 || strcmp(list->info.nama,"cacing hati") == 0) S.nilaiSakit += 3;
+        else if(strcmp(list->info.nama,"kanker") == 0 || strcmp(list->info.nama,"fiv") == 0 || strcmp(list->info.nama,"infeksi pernafasan") == 0) S.nilaiSakit += 5;
+        else S.nilaiSakit += 0;
+
         list = list->next;
     }
   	return S.nilaiSakit;
@@ -447,4 +447,14 @@ void menu(){
     printf("3. Lihat Pendaftar\n");
     printf("4. Proses Pendaftar\n");
     printf("5. Exit Program\n\n");
+}
+
+void toUpperStr(char str[]){
+    int i;
+    for(i = 0; str[i]!='\0'; i++){
+        if(str[i]>='a' && str[i]<='z')
+        {
+            str[i] = str[i] - 32;
+        }
+    }
 }

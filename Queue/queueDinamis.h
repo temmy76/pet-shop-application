@@ -18,7 +18,7 @@
 #include <conio.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include "../LinkedList/LIST1.H"
+#include "../LinkedList/list1.H"
 #include <string.h>
 #include <windows.h>
 
@@ -163,4 +163,6 @@ void lihatTabelPenyakit();
    I.S.: layar kosong
    F.S.: Mengetahui fitur-fitur aplikasi */
 void menu();
+
+void toUpperStr(char str[]);
 #endif // QUEUE_H
