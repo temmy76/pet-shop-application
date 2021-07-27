@@ -350,10 +350,11 @@ int hitungLamaPenyakit(sakit S){
 void checkPenyakit(sakit S){
   	address list = S.namaPenyakit.First;
 
+	toUpperStr(list->info.nama);
     while(list != Nil){
-        if(strcmp(list->info.nama,"gatal") == 0 || strcmp(list->info.nama,"jamuran") == 0 || strcmp(list->info.nama,"mencret") == 0 ) strcpy(list->info.kategori, "Ringan");
-        else if(strcmp(list->info.nama,"diabetes") == 0 || strcmp(list->info.nama,"rabies") == 0 || strcmp(list->info.nama,"cacing hati") == 0) strcpy(list->info.kategori, "Sedang");
-        else if(strcmp(list->info.nama,"kanker") == 0 || strcmp(list->info.nama,"fiv") == 0 || strcmp(list->info.nama,"infeksi pernafasan") == 0) strcpy(list->info.kategori, "Berat");
+        if(strcmp(list->info.nama,"GATAL") == 0 || strcmp(list->info.nama,"JAMURAN") == 0 || strcmp(list->info.nama,"MENCRET") == 0 ) strcpy(list->info.kategori, "Ringan");
+        else if(strcmp(list->info.nama,"DIABETES") == 0 || strcmp(list->info.nama,"RABIES") == 0 || strcmp(list->info.nama,"CACING HATI") == 0) strcpy(list->info.kategori, "Sedang");
+        else if(strcmp(list->info.nama,"KANKER") == 0 || strcmp(list->info.nama,"FIV") == 0 || strcmp(list->info.nama,"INFEKSI PERNAFASAN") == 0) strcpy(list->info.kategori, "Berat");
         else strcpy(list->info.kategori, "Baru");
         list = list->next;
     }
@@ -384,10 +385,11 @@ void checkPenyakit(sakit S){
 int hitungPoinPenyakit(sakit S){
 	address list = S.namaPenyakit.First;
 
+	toUpperStr(list->info.nama);
     while(list != Nil){
-        if(strcmp(list->info.nama,"gatal") == 0|| strcmp(list->info.nama,"jamuran") == 0 || strcmp(list->info.nama,"mencret") == 0 ) S.nilaiSakit += 1;
-        else if(strcmp(list->info.nama,"diabetes") == 0 || strcmp(list->info.nama,"rabies") == 0 || strcmp(list->info.nama,"cacing hati") == 0) S.nilaiSakit += 3;
-        else if(strcmp(list->info.nama,"kanker") == 0 || strcmp(list->info.nama,"fiv") == 0 || strcmp(list->info.nama,"infeksi pernafasan") == 0) S.nilaiSakit += 5;
+        if(strcmp(list->info.nama,"GATAL") == 0 || strcmp(list->info.nama,"JAMURAN") == 0 || strcmp(list->info.nama,"MENCRET") == 0 ) S.nilaiSakit += 1;
+        else if(strcmp(list->info.nama,"DIABETES") == 0 || strcmp(list->info.nama,"RABIES") == 0 || strcmp(list->info.nama,"CACING HATI") == 0) S.nilaiSakit += 3;
+        else if(strcmp(list->info.nama,"KANKER") == 0 || strcmp(list->info.nama,"FIV") == 0 || strcmp(list->info.nama,"INFEKSI PERNAFASAN") == 0) S.nilaiSakit += 5;
         else S.nilaiSakit += 0;
 
         list = list->next;
