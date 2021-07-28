@@ -300,7 +300,7 @@ void daftarPelanggan(Queue Q){
 			printf("[--------------------------]\n\n");
 		while(p != nil){
 			printf("[Antrian ke %d]\n", i);
-			printf("[=] Nama 		: %[49^\n] \n", p->info.nama);
+			printf("[=] Nama 		: %s\n", p->info.nama);
 			printf("[=] Jam Kedatangan 	: %d\n", p->info.waktuKedatangan);
 			printf("[=] Jumlah Penyakit	: %d\n", HitungElement(p->info.penyakit.namaPenyakit));
 			printf("[=] Penyakit		: ");
