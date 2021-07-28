@@ -297,7 +297,7 @@ void daftarPelanggan(Queue Q){
 			printf("[Antrian ke %d]\n", i);
 			printf("[=] Nama 		: %s \n", p->info.nama);
 			printf("[=] Jam Kedatangan 	: %d\n", p->info.waktuKedatangan);
-			printf("[=] Jumlah Penyakit	: %d\n", NbElmt(p->info.penyakit.namaPenyakit));
+			printf("[=] Jumlah Penyakit	: %d\n", HitungElement(p->info.penyakit.namaPenyakit));
 			printf("[=] Penyakit		: ");
 			while(temp != NULL){
 				printf(" %s (%s), ", temp->info.nama, temp->info.kategori);

@@ -4,6 +4,8 @@
         "list1.h": "c",
         "LIST1.H": "cpp",
         "LIST1.C": "cpp",
-        "type_traits": "c"
+        "type_traits": "c",
+        "stdlib.h": "c",
+        "DRIVLIST.C": "cpp"
     }
 }

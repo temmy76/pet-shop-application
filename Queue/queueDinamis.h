@@ -18,7 +18,7 @@
 #include <conio.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include "../LinkedList/LIST1.H"
+#include "../LinkedList/List_penyakit.h"
 #include <string.h>
 #include <windows.h>
 
