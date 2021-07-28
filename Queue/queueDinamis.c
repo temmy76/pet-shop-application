@@ -281,6 +281,7 @@ int hitungEstimasiSelesai(Queue Q, addrNQ data){
 void daftarPelanggan(Queue Q){
 	addrNQ p;
 	p = Q.Front;
+	checkPenyakit(p->info.penyakit);
 	address temp = p->info.penyakit.namaPenyakit.First;
 	int i = 1;
 	system("cls");
@@ -353,8 +354,9 @@ int hitungLamaPenyakit(sakit S){
 void checkPenyakit(sakit S){
   	address list = S.namaPenyakit.First;
 
-	toUpperStr(list->info.nama);
+	
     while(list != Nil){
+		toUpperStr(list->info.nama);
         if(strcmp(list->info.nama,"GATAL") == 0 || strcmp(list->info.nama,"JAMURAN") == 0 || strcmp(list->info.nama,"MENCRET") == 0 ) strcpy(list->info.kategori, "Ringan");
         else if(strcmp(list->info.nama,"DIABETES") == 0 || strcmp(list->info.nama,"RABIES") == 0 || strcmp(list->info.nama,"CACING HATI") == 0) strcpy(list->info.kategori, "Sedang");
         else if(strcmp(list->info.nama,"KANKER") == 0 || strcmp(list->info.nama,"FIV") == 0 || strcmp(list->info.nama,"INFEKSI PERNAFASAN") == 0) strcpy(list->info.kategori, "Berat");
