@@ -152,10 +152,10 @@ void InsertPelanggan(Queue *Q){
 	printf("[==========================]\n");
 	printf("[--  Tambah Pendaftaran  --]\n");
 	printf("[==========================]\n\n");
-    printf("[=] Nama 		: "); scanf("%[34^\n]", X.nama); fflush(stdin);
-    printf("[=] Jam Kedatangan 	: "); scanf("%d" , &X.waktuKedatangan); fflush(stdin);
-    printf("[=] Jumlah Penyakit	: "); scanf("%d",&banyak); fflush(stdin);
-	
+    printf("[=] Nama 	: "); scanf("%s \n", X.nama); fflush(stdin);
+    printf("[=] Jam Kedatangan 	: "); scanf("%d \n" , &X.waktuKedatangan); fflush(stdin);
+    printf("[=] Jumlah Penyakit	: "); scanf("%d \n",&banyak); fflush(stdin);
+	CreateList(&X.penyakit.namaPenyakit);
     for(i = 0; i < banyak; i++){
     	printf("[=] Nama Penyakit 	: "); scanf("%s", Z.nama); fflush(stdin);
 		InsVLast(&X.penyakit.namaPenyakit , Z);
@@ -276,11 +276,6 @@ int hitungEstimasiSelesai(Queue Q, addrNQ data){
     }
 }
 
-/* Author : Temmy Mahesa Ridwan - Nuno Alwi Azima
- * Melihat daftar pelanggan pada antrian
- * I.S.: antrian mungkin kosong
- * F.S.: menampilkan antrian 1 sampai n
- */
 void daftarPelanggan(Queue Q){
 	addrNQ p;
 	p = Q.Front;
@@ -300,7 +295,7 @@ void daftarPelanggan(Queue Q){
 			printf("[--------------------------]\n\n");
 		while(p != nil){
 			printf("[Antrian ke %d]\n", i);
-			printf("[=] Nama 		: %[49^\n] \n", p->info.nama);
+			printf("[=] Nama 		: %s \n", p->info.nama);
 			printf("[=] Jam Kedatangan 	: %d\n", p->info.waktuKedatangan);
 			printf("[=] Jumlah Penyakit	: %d\n", HitungElement(p->info.penyakit.namaPenyakit));
 			printf("[=] Penyakit		: ");
