@@ -11,8 +11,8 @@
 #define First(L) ((L).First)
 
 typedef struct {
-  char* nama;
-  char* kategori;
+  char nama[35];
+  char kategori[35];
 }infotype;
 typedef struct tElmtlist *address;
 typedef struct  tElmtlist{
@@ -26,7 +26,7 @@ typedef struct  tElmtlist{
 
 typedef struct {
 	address First;
-	}List;
+}List;
 
 /* Pembuatan  List Kosong  */
 void CreateList(List *L);

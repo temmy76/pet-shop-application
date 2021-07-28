@@ -49,8 +49,8 @@ void InsertLast(List  *L, address P){
     /* F.S   : P ditambahkan  sebagai elemen terakhir yang baru	*/
     address last;
     if(L->First != Nil){
-        P->next = L->First;
         L->First = P;
+        return;
     }else{
         last = L->First;
         while(last->next != Nil){

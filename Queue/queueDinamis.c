@@ -148,18 +148,20 @@ void InsertPelanggan(Queue *Q){
 	int banyak,i ;
 	infoqueue X;
 	infotype Z;
+	List penyakit;
 	system("cls");
 	printf("[==========================]\n");
 	printf("[--  Tambah Pendaftaran  --]\n");
 	printf("[==========================]\n\n");
-    printf("[=] Nama 	: "); scanf("%s \n", X.nama); fflush(stdin);
-    printf("[=] Jam Kedatangan 	: "); scanf("%d \n" , &X.waktuKedatangan); fflush(stdin);
-    printf("[=] Jumlah Penyakit	: "); scanf("%d \n",&banyak); fflush(stdin);
-	CreateList(&X.penyakit.namaPenyakit);
+    printf("[=] Nama 	: "); scanf("%s", X.nama); fflush(stdin);
+    printf("[=] Jam Kedatangan 	: "); scanf("%d" , &X.waktuKedatangan); fflush(stdin);
+    printf("[=] Jumlah Penyakit	: "); scanf("%d",&banyak); fflush(stdin);
+	CreateList(&penyakit);
     for(i = 0; i < banyak; i++){
     	printf("[=] Nama Penyakit 	: "); scanf("%s", Z.nama); fflush(stdin);
-		InsVLast(&X.penyakit.namaPenyakit , Z);
+		InsVLast(&penyakit , Z);
 	}
+	X.penyakit.namaPenyakit = penyakit;
 	enQueuePrior(Q, X);
 }
 
@@ -297,6 +299,7 @@ void daftarPelanggan(Queue Q){
 			printf("[Antrian ke %d]\n", i);
 			printf("[=] Nama 		: %s \n", p->info.nama);
 			printf("[=] Jam Kedatangan 	: %d\n", p->info.waktuKedatangan);
+			printf("test");
 			printf("[=] Jumlah Penyakit	: %d\n", HitungElement(p->info.penyakit.namaPenyakit));
 			printf("[=] Penyakit		: ");
 			while(temp != NULL){
@@ -425,8 +428,6 @@ void lihatTabelPenyakit(){
     printf("||  Berat   || FIV                ||   5   ||\n");
     printf("||  Berat   || Infeksi Pernafasan ||   5   ||\n");
   	printf("||=========================================||\n");
-
-  	getch();
 }
 
 /* Author : Nuno Alwi Azimah

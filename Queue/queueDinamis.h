@@ -37,7 +37,7 @@ typedef struct{
    int nilaiSakit;
 }sakit;
 typedef struct infoqueue {
-   char *nama; // Nama Pendaftar
+   char nama[35]; // Nama Pendaftar
    int waktuKedatangan; // waktu kedatangan pendaftar ke dokter
    int waktuTunggu;
    int waktuSelesai;

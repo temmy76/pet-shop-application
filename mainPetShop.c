@@ -1,18 +1,18 @@
 #include <stdio.h>
 #include "Queue/queueDinamis.h"
-
+Queue antrian;
 
 
 int main(){
     int pilihan;
-    Queue antrian;
+
     CreateQueue(&antrian);
     do{
         menu(); 
         printf("Pilih : "); scanf("%d",&pilihan);
         switch (pilihan) {
             case 1:
-                lihatTabelPenyakit();
+                lihatTabelPenyakit();getch();
                 break;
 
             case 2:
