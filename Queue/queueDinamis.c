@@ -161,7 +161,7 @@ void InsertPelanggan(Queue *Q){
     	printf("[=] Nama Penyakit 	: "); scanf("%s", Z.nama); fflush(stdin);
 		InsertLast(&X.penyakit.namaPenyakit , Z);
 	}
-	printf("test");
+
 	enQueuePrior(Q, X);
 }
 
@@ -299,16 +299,16 @@ void daftarPelanggan(Queue Q){
 			printf("[Antrian ke %d]\n", i);
 			printf("[=] Nama 		: %s \n", p->info.nama);
 			printf("[=] Jam Kedatangan 	: %d\n", p->info.waktuKedatangan);
-			printf("test");
 			printf("[=] Jumlah Penyakit	: %d\n", HitungElement(p->info.penyakit.namaPenyakit));
 			printf("[=] Penyakit		: ");
 			while(temp != NULL){
 				printf(" %s (%s), ", temp->info.nama, temp->info.kategori);
 				temp = temp->next;
 			}
-			printf("[=] Estimasi Tunggu		: %d\n", hitungEstimasiTunggu(Q, p));
+			printf("\n[=] Estimasi Tunggu	: %d\n", hitungEstimasiTunggu(Q, p));
 			printf("[=] Estimasi Selesai	: %d\n\n", hitungEstimasiSelesai(Q, p));
 			i++;
+			p = p->next;
 		}
 	}
 	getch();

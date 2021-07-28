@@ -42,15 +42,16 @@ void InsertLast(List *L, infotype X){
         return;
     }
     if(L->First == NULL){
-        L->First= p;
+        L->First = p;
         return;
     }
 
     address last = L->First;
-    while(last != NULL){
+    while(last->next != NULL){
         last = last->next;
     }
     last->next = p;
+    last->next->next = NULL;
 }
 
 
