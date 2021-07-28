@@ -156,12 +156,12 @@ void InsertPelanggan(Queue *Q){
     printf("[=] Nama 	: "); scanf("%s", X.nama); fflush(stdin);
     printf("[=] Jam Kedatangan 	: "); scanf("%d" , &X.waktuKedatangan); fflush(stdin);
     printf("[=] Jumlah Penyakit	: "); scanf("%d",&banyak); fflush(stdin);
-	CreateList(&penyakit);
+	CreateList(&X.penyakit.namaPenyakit);
     for(i = 0; i < banyak; i++){
     	printf("[=] Nama Penyakit 	: "); scanf("%s", Z.nama); fflush(stdin);
-		InsVLast(&penyakit , Z);
+		InsertLast(&X.penyakit.namaPenyakit , Z);
 	}
-	X.penyakit.namaPenyakit = penyakit;
+	printf("test");
 	enQueuePrior(Q, X);
 }
 

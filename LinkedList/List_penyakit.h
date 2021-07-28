@@ -45,16 +45,13 @@ void Dealokasi(address *P);
 /* F.S  :   P dikembalikan ke  sistem 	*/
 /*   	    Melakukan  dealokasi, pengembalian address  P */
 
-void InsVLast(List *L, infotype X);
+void InsertLast(List *L, infotype X);
 /* I.S  : L mungkin kosong          */
 /* F.S  : Melakukan alokasi sebuah elemen dan                */
 /*        menambahkan elemen list di akhir; elemen terakhir  */
 /*        yang baru bernilai X jika alokasi berhasil, 	     */	
-/*	  Jika alokasi gagal: I.S = F.S			     */
+/*	  	Jika alokasi gagal: I.S = F.S			     */
 
-void InsertLast(List  *L, address P);
-/* I.S   : Sembarang, P sudah dialokasi				*/
-/* F.S   : P ditambahkan  sebagai elemen terakhir yang baru	*/
 
 int HitungElement(List L);
 /* Mengirimkan banyaknya elemen list, mengirimkan Nol jika kosong */

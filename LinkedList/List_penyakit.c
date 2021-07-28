@@ -31,33 +31,26 @@ void Dealokasi(address *P){
     free(*P);
 }
 
-void InsVLast(List *L, infotype X){
+void InsertLast(List *L, infotype X){
     /* I.S  : L mungkin kosong          */
     /* F.S  : Melakukan alokasi sebuah elemen dan                */
     /*        menambahkan elemen list di akhir; elemen terakhir  */
     /*        yang baru bernilai X jika alokasi berhasil, 	     */	
     /*	  Jika alokasi gagal: I.S = F.S			     */
     address p = Alokasi(X);
-    if(p != Nil){
-        InsertLast(L, p);
-    }
-}
-
-
-void InsertLast(List  *L, address P){
-    /* I.S   : Sembarang, P sudah dialokasi				*/
-    /* F.S   : P ditambahkan  sebagai elemen terakhir yang baru	*/
-    address last;
-    if(L->First != Nil){
-        L->First = P;
+    if(p == NULL){
         return;
-    }else{
-        last = L->First;
-        while(last->next != Nil){
-            last = last->next;
-        }
-        last->next = P;
     }
+    if(L->First == NULL){
+        L->First= p;
+        return;
+    }
+
+    address last = L->First;
+    while(last != NULL){
+        last = last->next;
+    }
+    last->next = p;
 }
 
 
