@@ -286,7 +286,7 @@ void daftarPelanggan(Queue Q){
 	printf("[----  Lihat  Antrian  ----]\n");
 	printf("[==========================]\n\n");
 
-	
+
 	if(p == nil){
 		printf("Tidak ada Antrian \n");
 	}else{
@@ -308,7 +308,7 @@ void daftarPelanggan(Queue Q){
 			i++;
 		}
 	}
-	
+	getch();
 }
 
 /* Author : Nuno Alwi Azimah
@@ -425,6 +425,8 @@ void lihatTabelPenyakit(){
     printf("||  Berat   || FIV                ||   5   ||\n");
     printf("||  Berat   || Infeksi Pernafasan ||   5   ||\n");
   	printf("||=========================================||\n");
+
+  	getch();
 }
 
 /* Author : Nuno Alwi Azimah
