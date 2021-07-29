@@ -9,7 +9,7 @@ int main(){
     CreateQueue(&antrian);
     do{
         menu(); 
-        printf("Pilih : "); scanf("%d",&pilihan);
+        gotoxy(30,16);printf("Pilih : "); scanf("%d",&pilihan);
         switch (pilihan) {
             case 1:
                 lihatTabelPenyakit();getch();
@@ -27,6 +27,8 @@ int main(){
                 ProsesPelanggan(antrian);
                 break;
             case 5:
+                gotoxy(30,18);printf("Terimakasih sudah menggunakan aplikasi kami");
+                getch();
                 break;
         }
     }while(pilihan != 5);

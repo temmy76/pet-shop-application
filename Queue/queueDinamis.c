@@ -143,18 +143,22 @@ void printInfoQueue(Queue Q){
 	}
 }
 
-
+/* Author : Wili Akbar Nugraha
+ * Menambahkan pasien ke list antrian
+ * IS : Queue Mungkin kosong
+ * FS : Menambah pendaftar dan diurutkan sesuai nilai penyakit yang dimiliki kecuali element pertama
+*/
 void InsertPelanggan(Queue *Q){
 	int banyak,i ;
 	infoqueue X;
 	
 	system("cls");
-	printf("[==========================]\n");
-	printf("[--  Tambah Pendaftaran  --]\n");
-	printf("[==========================]\n\n");
-    printf("[=] Nama 		: "); scanf("%s", X.nama); fflush(stdin);
-    printf("[=] Jam Kedatangan 	: "); scanf("%d" , &X.waktuKedatangan); fflush(stdin);
-    printf("[=] Jumlah Penyakit	: "); scanf("%d",&banyak); fflush(stdin);
+	gotoxy(30,6);printf("[==========================================]\n");
+	gotoxy(30,7);printf("[---          Tambah Pendaftaran        ---]\n");
+	gotoxy(30,8);printf("[==========================================]\n\n");
+    gotoxy(30,9);printf("[=] Nama 			: "); scanf("%s", X.nama); fflush(stdin);
+    gotoxy(30,10);printf("[=] Jam Kedatangan 	: "); scanf("%d" , &X.waktuKedatangan); fflush(stdin);
+    gotoxy(30,11);printf("[=] Jumlah Penyakit	: "); scanf("%d",&banyak); fflush(stdin);
 	insertListQ(&X,banyak);
 	enQueuePrior(Q, X);
 }
@@ -166,7 +170,7 @@ void insertListQ(infoqueue *data, int jumlah){
 	int i;
 	lihatTabelPenyakit();
     for(i = 0; i < jumlah; i++){
-    	printf("[=] Nama Penyakit 	: "); scanf("%[^\n]s", Z.nama); fflush(stdin);
+    	gotoxy(30,21+i);printf("[=] Nama Penyakit 	: "); scanf("%[^\n]s", Z.nama); fflush(stdin);
 		InsertLast(&penyakit, Z);
 	}
 	data->penyakit.namaPenyakit = penyakit;
@@ -285,24 +289,29 @@ int hitungEstimasiSelesai(Queue Q, addrNQ data){
     }
 }
 
+
+/* Author : Temmy Mahesa Ridwan
+ * Menampilkan semua Antrian ke layar apabila kosong akan di beritau bahwa antrian belum ada
+ * IS : Queue mungkin kosong
+ * FS : Menampilkan semua antrian ke layar
+*/
 void daftarPelanggan(Queue Q){
 	addrNQ p;
 	p = Q.Front;
 	int i = 1;
 	system("cls");
-	printf("[==========================]\n");
-	printf("[----  Lihat  Antrian  ----]\n");
-	printf("[==========================]\n\n");
+	gotoxy(30,0);printf("[==========================================]\n");
+	gotoxy(30,1);printf("[---            Lihat Antrian           ---]\n");
+	gotoxy(30,2);printf("[==========================================]\n\n");
 
 
 	if(p == nil){
-		printf("Tidak ada Antrian \n");
+		gotoxy(39,6);printf(" !!! Tidak ada Antrian !!!\n");
 	}else{
-			address temp = p->info.penyakit.namaPenyakit.First;
-			printf("[--------------------------]\n");
-			printf("[       Antrian Utama      ]\n");
-			printf("[--------------------------]\n\n");
-		while(p != nil){
+			gotoxy(30,3);printf("[------------------------------------------]\n");
+			gotoxy(30,4);printf("[               Antrian Utama              ]\n");
+			gotoxy(30,5);printf("[------------------------------------------]\n\n");
+			while(p != nil){
 			printf("[Antrian ke %d]\n", i);
 			printf("[=] Nama 		: %s \n", p->info.nama);
 			printf("[=] Jam Kedatangan 	: %d\n", p->info.waktuKedatangan);
@@ -418,21 +427,21 @@ int hitungPoinPenyakit(sakit S){
  */
 void lihatTabelPenyakit(){
     system("cls");
-	printf("[===========================================]\n");
-	printf("[------------  Tabel  Penyakit  ------------]\n");
-	printf("[===========================================]\n\n");
-	printf("||=========================================||\n");
-  	printf("|| Kategori ||        Nama        || Point ||\n");
-  	printf("||  Ringan  || Gatal              ||   1   ||\n");
-    printf("||  Ringan  || Jamuran            ||   1   ||\n");
-    printf("||  Ringan  || Mencret            ||   1   ||\n");
-    printf("||  Sedang  || Diabetes           ||   3   ||\n");
-    printf("||  Sedang  || Rabies             ||   3   ||\n");
-    printf("||  Sedang  || Cacing Hati        ||   3   ||\n");
-    printf("||  Berat   || Kanker             ||   5   ||\n");
-    printf("||  Berat   || FIV                ||   5   ||\n");
-    printf("||  Berat   || Infeksi Pernafasan ||   5   ||\n");
-  	printf("||=========================================||\n");
+	gotoxy(30,6);printf("[===========================================]\n");
+	gotoxy(30,7);printf("[------------  Tabel  Penyakit  ------------]\n");
+	gotoxy(30,8);printf("[===========================================]\n\n");
+	gotoxy(30,9);printf("||=========================================||\n");
+  	gotoxy(30,10);printf("|| Kategori ||        Nama        || Point ||\n");
+  	gotoxy(30,11);printf("||  Ringan  || Gatal              ||   1   ||\n");
+    gotoxy(30,12);printf("||  Ringan  || Jamuran            ||   1   ||\n");
+	gotoxy(30,13);printf("||  Ringan  || Mencret            ||   1   ||\n");
+    gotoxy(30,14);printf("||  Sedang  || Diabetes           ||   3   ||\n");
+    gotoxy(30,15);printf("||  Sedang  || Rabies             ||   3   ||\n");
+    gotoxy(30,16);printf("||  Sedang  || Cacing Hati        ||   3   ||\n");
+    gotoxy(30,17);printf("||  Berat   || Kanker             ||   5   ||\n");
+    gotoxy(30,18);printf("||  Berat   || FIV                ||   5   ||\n");
+    gotoxy(30,19);printf("||  Berat   || Infeksi Pernafasan ||   5   ||\n");
+  	gotoxy(30,20);printf("||=========================================||\n");
 }
 
 /* Author : Nuno Alwi Azimah
@@ -448,15 +457,15 @@ void lihatTabelPenyakit(){
  */
 void menu(){
 	system("cls");
-    printf("===========================\n");
-    printf("Welcome To UDUSDDH Pet Shop\n");
-    printf("===========================\n\n");
-    printf("Option Pet Shop : \n");
-    printf("1. Lihat Tabel Penyakit\n");
-    printf("2. Tambah Pendaftar\n");
-    printf("3. Lihat Pendaftar\n");
-    printf("4. Proses Pendaftar\n");
-    printf("5. Exit Program\n\n");
+    gotoxy(30,4);printf("======================================\n");
+    gotoxy(37,6);printf("Welcome To UDUSDDH Pet Shop\n");
+    gotoxy(30,8);printf("======================================\n\n");
+    gotoxy(30,10);printf("Option Pet Shop : \n");
+    gotoxy(30,11);printf("1. Lihat Tabel Penyakit\n");
+    gotoxy(30,12);printf("2. Tambah Pendaftar\n");
+    gotoxy(30,13);printf("3. Lihat Pendaftar\n");
+    gotoxy(30,14);printf("4. Proses Pendaftar\n");
+    gotoxy(30,15);printf("5. Exit Program\n\n");
 }
 
 void toUpperStr(char str[]){
