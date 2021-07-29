@@ -176,21 +176,35 @@ void insertListQ(infoqueue *data, int jumlah){
 	data->penyakit.namaPenyakit = penyakit;
 }
 
-void ProsesPelanggan(Queue Q){
-  	system("cls");
-	printf("[==========================]\n");
-	printf("[----  Proses Antrian  ----]\n");
-	printf("[==========================]\n\n");
+void ProsesPelanggan(Queue *Q){
+    addrNQ p;
+    p = Q->Front;
+    char pilihan;
 
-    printf("[=] Nama 		: \n"); 
-    printf("[=] Jam Kedatangan 	: \n");
-    printf("[=] Jumlah Penyakit	: \n");
-    printf("[=] Penyakit		: \n");
-    printf("[=] Kategori Penyakit	: \n");
-    printf("[=] Estimasi Proses	: \n");
-    printf("[=] Estimasi Selesai	: \n");
-    
-    printf("Apakah akan telah diobati ? [Y/N]");
+    system("cls");
+    printf("[==========================]\n");
+    printf("[----  Proses Antrian  ----]\n");
+    printf("[==========================]\n\n");
+
+    printf("[=] Nama 		: %s \n", p->info.nama);
+    printf("[=] Jam Kedatangan 	: %d\n", p->info.waktuKedatangan);
+    printf("[=] Jumlah Penyakit	: %d\n", HitungElement(p->info.penyakit.namaPenyakit));
+    checkPenyakit(p->info.penyakit);
+    printf("[=] Penyakit		: "); PrintInfo(p->info.penyakit.namaPenyakit);
+    printf("\n[=] Estimasi Tunggu	: %d\n", hitungEstimasiTunggu(*Q, p));
+    printf("[=] Estimasi Selesai	: %d\n\n", hitungEstimasiSelesai(*Q, p));
+
+    printf("Apakah akan telah diobati ? [Y/N]"); scanf(" %c", &pilihan); fflush(stdin);
+    if (pilihan == 'Y' || pilihan == 'y'){
+        deQueue(Q);
+        printf("\n======= Selamat kucing anda sudah sehat!!!!! ^_^ =======\n");
+        printf("Pencet tombol apapun untuk kembali ke menu ^_^\n");
+    }
+    else if(pilihan == 'N' || pilihan == 'n'){
+        printf("\n======= Kucing anda sedang dalam proses pengobatan =======\n");
+        printf("Harap bersabar ^_^\n");
+        printf("Pencet tombol apapun untuk kembali ke menu ^_^\n");
+    }
     getch();
 }
 
@@ -312,6 +326,7 @@ void daftarPelanggan(Queue Q){
 			gotoxy(30,4);printf("[               Antrian Utama              ]\n");
 			gotoxy(30,5);printf("[------------------------------------------]\n\n");
 			while(p != nil){
+
 			printf("[Antrian ke %d]\n", i);
 			printf("[=] Nama 		: %s \n", p->info.nama);
 			printf("[=] Jam Kedatangan 	: %d\n", p->info.waktuKedatangan);
@@ -372,7 +387,7 @@ void checkPenyakit(sakit S){
         if(strcmp(list->info.nama,"GATAL") == 0 || strcmp(list->info.nama,"JAMURAN") == 0 || strcmp(list->info.nama,"MENCRET") == 0 ) strcpy(list->info.kategori, "Ringan");
         else if(strcmp(list->info.nama,"DIABETES") == 0 || strcmp(list->info.nama,"RABIES") == 0 || strcmp(list->info.nama,"CACING HATI") == 0) strcpy(list->info.kategori, "Sedang");
         else if(strcmp(list->info.nama,"KANKER") == 0 || strcmp(list->info.nama,"FIV") == 0 || strcmp(list->info.nama,"INFEKSI PERNAFASAN") == 0) strcpy(list->info.kategori, "Berat");
-        else strcpy(list->info.kategori, "Baru");
+        else strcpy(list->info.kategori, "BARU");
         list = list->next;
     }
 }
@@ -405,9 +420,9 @@ int hitungPoinPenyakit(sakit S){
 	toUpperStr(list->info.nama);
     while(list != Nil){
         if(strcmp(list->info.nama,"GATAL") == 0 || strcmp(list->info.nama,"JAMURAN") == 0 || strcmp(list->info.nama,"MENCRET") == 0 ) S.nilaiSakit += 1;
-        else if(strcmp(list->info.nama,"DIABETES") == 0 || strcmp(list->info.nama,"RABIES") == 0 || strcmp(list->info.nama,"CACING HATI") == 0) S.nilaiSakit += 3;
+        else if(strcmp(list->info.nama,"BARU") == 0 || strcmp(list->info.nama,"DIABETES") == 0 || strcmp(list->info.nama,"RABIES") == 0 || strcmp(list->info.nama,"CACING HATI") == 0) S.nilaiSakit += 3;
         else if(strcmp(list->info.nama,"KANKER") == 0 || strcmp(list->info.nama,"FIV") == 0 || strcmp(list->info.nama,"INFEKSI PERNAFASAN") == 0) S.nilaiSakit += 5;
-        else S.nilaiSakit += 0;
+
 
         list = list->next;
     }

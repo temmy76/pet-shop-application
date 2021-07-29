@@ -24,7 +24,7 @@ int main(){
                 break;
 
             case 4:
-                ProsesPelanggan(antrian);
+                ProsesPelanggan(&antrian);
                 break;
             case 5:
                 gotoxy(30,18);printf("Terimakasih sudah menggunakan aplikasi kami");
