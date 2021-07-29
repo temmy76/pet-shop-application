@@ -147,6 +147,7 @@ void printInfoQueue(Queue Q){
  * Menambahkan pasien ke list antrian
  * IS : Queue Mungkin kosong
  * FS : Menambah pendaftar dan diurutkan sesuai nilai penyakit yang dimiliki kecuali element pertama
+ * Modified : Temmy Mahesa Ridwan
 */
 void InsertPelanggan(Queue *Q){
 	int banyak,i ;
@@ -176,6 +177,11 @@ void insertListQ(infoqueue *data, int jumlah){
 	data->penyakit.namaPenyakit = penyakit;
 }
 
+/*Author : Wili Akbar Nugraga
+ * Menghapus peasian pada antrian antrian paling depan
+ * IS : antrian mungkin kosong
+ * FS : Antrian paling depan di bebaskan, dan antrian ke 2 akan menjadi head
+*/
 void ProsesPelanggan(Queue *Q){
     addrNQ p;
     p = Q->Front;
