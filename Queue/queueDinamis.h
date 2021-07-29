@@ -114,7 +114,7 @@ void insertListQ(infoqueue *data, int jumlah);
  * F.S.: Pelanggan antrian berhasil keluar dari Queue ( antrian )
  */
 
-void ProsesPelanggan(Queue Q);
+void ProsesPelanggan(Queue *Q);
 /* menambah data pelanggan serta mengurutkan Data Pelanggan berdasarkan jumlah nilaiPenyakit 
  * apabila nilaiPenyakit pelanggan nya lebih besar dari pada pelanggan yang duluan datang 
  * maka pelanggan dengan nilaiPenyakit terbesar didahulukan terkecuali pelanngan pertama pada antrian
@@ -140,6 +140,7 @@ int hitungEstimasiSelesai(Queue Q, addrNQ data);
  * FS : List penyakit tertampil di layar 
 */
 void daftarPelanggan(Queue Q);
+
 /* Menghitung waktu lama penyakit untuk memproses grooming
    I.S.: Lama proses untuk kucing tidak diketahui
    F.S.: Mengembalikan nilai lama proses grooming */
