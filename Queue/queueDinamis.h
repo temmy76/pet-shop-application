@@ -106,6 +106,7 @@ void printInfoQueue(Queue Q);
  * F.S.: Antrian berhasil masuk ke Queue
  */
 void InsertPelanggan(Queue *Q);
+void insertListQ(infoqueue *data, int jumlah);
 
 /* Author : Wili Akbar Nugraha
  * Memproses pelanggan ( deQueue )

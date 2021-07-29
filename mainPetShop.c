@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include "Queue/queueDinamis.h"
-Queue antrian;
+
 
 
 int main(){
     int pilihan;
-
+    Queue antrian;
     CreateQueue(&antrian);
     do{
         menu(); 

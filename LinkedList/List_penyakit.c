@@ -69,4 +69,23 @@ int HitungElement(List L){
     }
     return jumlah;
 }
+
+/* *************PROSES SEMUA ELEMEN ****************   */
+void PrintInfo(List L)
+{ /* I.S   : List mungkin kosong 	*/
+  /* F.S   : Jika list tidak kosong, semua info yang disimpan pada */
+  /*         elemen list di-print			  	   */
+  /*         Jika list kosong, hanya menuliskan "List Kosong"	   */
+  int i;	
+  address P=First(L);
+  if( P==Nil) { 
+  	  printf("List Kosong !\n");
+  } else { /* List tidak kosong */
+	    do { 
+	 	  printf("%s ( %s ), ", P->info.nama, P->info.kategori);
+		  P= P->next;
+		  i++;
+	    } while(P!=Nil); 
+	 }
+}
 /* Mengirimkan banyaknya elemen list, mengirimkan Nol jika kosong */

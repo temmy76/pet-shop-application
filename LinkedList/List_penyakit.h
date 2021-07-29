@@ -55,5 +55,7 @@ void InsertLast(List *L, infotype X);
 
 int HitungElement(List L);
 /* Mengirimkan banyaknya elemen list, mengirimkan Nol jika kosong */
+
+void PrintInfo(List L);
     
 #endif

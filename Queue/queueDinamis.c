@@ -147,8 +147,7 @@ void printInfoQueue(Queue Q){
 void InsertPelanggan(Queue *Q){
 	int banyak,i ;
 	infoqueue X;
-	infotype Z;
-	List penyakit;
+	
 	system("cls");
 	printf("[==========================]\n");
 	printf("[--  Tambah Pendaftaran  --]\n");
@@ -156,13 +155,20 @@ void InsertPelanggan(Queue *Q){
     printf("[=] Nama 	: "); scanf("%s", X.nama); fflush(stdin);
     printf("[=] Jam Kedatangan 	: "); scanf("%d" , &X.waktuKedatangan); fflush(stdin);
     printf("[=] Jumlah Penyakit	: "); scanf("%d",&banyak); fflush(stdin);
-	CreateList(&X.penyakit.namaPenyakit);
-    for(i = 0; i < banyak; i++){
-    	printf("[=] Nama Penyakit 	: "); scanf("%s", Z.nama); fflush(stdin);
-		InsertLast(&X.penyakit.namaPenyakit , Z);
-	}
-
+	insertListQ(&X,banyak);
 	enQueuePrior(Q, X);
+}
+
+void insertListQ(infoqueue *data, int jumlah){
+	infotype Z;
+	List penyakit;
+	CreateList(&penyakit);
+	int i;
+    for(i = 0; i < jumlah; i++){
+    	printf("[=] Nama Penyakit 	: "); scanf("%s", Z.nama); fflush(stdin);
+		InsertLast(&penyakit, Z);
+	}
+	data->penyakit.namaPenyakit = penyakit;
 }
 
 void ProsesPelanggan(Queue Q){
@@ -281,7 +287,6 @@ int hitungEstimasiSelesai(Queue Q, addrNQ data){
 void daftarPelanggan(Queue Q){
 	addrNQ p;
 	p = Q.Front;
-	checkPenyakit(p->info.penyakit);
 	address temp = p->info.penyakit.namaPenyakit.First;
 	int i = 1;
 	system("cls");
@@ -301,11 +306,8 @@ void daftarPelanggan(Queue Q){
 			printf("[=] Nama 		: %s \n", p->info.nama);
 			printf("[=] Jam Kedatangan 	: %d\n", p->info.waktuKedatangan);
 			printf("[=] Jumlah Penyakit	: %d\n", HitungElement(p->info.penyakit.namaPenyakit));
-			printf("[=] Penyakit		: ");
-			while(temp != NULL){
-				printf(" %s (%s), ", temp->info.nama, temp->info.kategori);
-				temp = temp->next;
-			}
+			checkPenyakit(p->info.penyakit);
+			printf("[=] Penyakit		: "); PrintInfo(p->info.penyakit.namaPenyakit);
 			printf("\n[=] Estimasi Tunggu	: %d\n", hitungEstimasiTunggu(Q, p));
 			printf("[=] Estimasi Selesai	: %d\n\n", hitungEstimasiSelesai(Q, p));
 			i++;
