@@ -182,29 +182,33 @@ void ProsesPelanggan(Queue *Q){
     char pilihan;
 
     system("cls");
-    printf("[==========================]\n");
-    printf("[----  Proses Antrian  ----]\n");
-    printf("[==========================]\n\n");
+    gotoxy(30,6);printf("[==========================================]\n");
+	gotoxy(30,7);printf("[---            Proses Antrian          ---]\n");
+	gotoxy(30,8);printf("[==========================================]\n\n");
+	if(p == nil){
+		gotoxy(39,11);printf(" !!! Tidak ada Antrian !!!\n");
+	}else {
+		gotoxy(30,10);printf("[=] Nama 		: %s \n", p->info.nama);
+		gotoxy(30,11);printf("[=] Jam Kedatangan 	: %d\n", p->info.waktuKedatangan);
+		gotoxy(30,12);printf("[=] Jumlah Penyakit	: %d\n", HitungElement(p->info.penyakit.namaPenyakit));
+		checkPenyakit(p->info.penyakit);
+		gotoxy(30,13);printf("[=] Penyakit		: "); PrintInfo(p->info.penyakit.namaPenyakit);
+		gotoxy(30,14);printf("[=] Estimasi Tunggu	: %d\n", hitungEstimasiTunggu(*Q, p));
+		gotoxy(30,15);printf("[=] Estimasi Selesai	: %d\n\n", hitungEstimasiSelesai(*Q, p));
 
-    printf("[=] Nama 		: %s \n", p->info.nama);
-    printf("[=] Jam Kedatangan 	: %d\n", p->info.waktuKedatangan);
-    printf("[=] Jumlah Penyakit	: %d\n", HitungElement(p->info.penyakit.namaPenyakit));
-    checkPenyakit(p->info.penyakit);
-    printf("[=] Penyakit		: "); PrintInfo(p->info.penyakit.namaPenyakit);
-    printf("\n[=] Estimasi Tunggu	: %d\n", hitungEstimasiTunggu(*Q, p));
-    printf("[=] Estimasi Selesai	: %d\n\n", hitungEstimasiSelesai(*Q, p));
-
-    printf("Apakah akan telah diobati ? [Y/N]"); scanf(" %c", &pilihan); fflush(stdin);
-    if (pilihan == 'Y' || pilihan == 'y'){
-        deQueue(Q);
-        printf("\n======= Selamat kucing anda sudah sehat!!!!! ^_^ =======\n");
-        printf("Pencet tombol apapun untuk kembali ke menu ^_^\n");
-    }
-    else if(pilihan == 'N' || pilihan == 'n'){
-        printf("\n======= Kucing anda sedang dalam proses pengobatan =======\n");
-        printf("Harap bersabar ^_^\n");
-        printf("Pencet tombol apapun untuk kembali ke menu ^_^\n");
-    }
+		gotoxy(30,17);printf("Apakah akan telah diobati ? [Y/N]"); scanf(" %c", &pilihan); fflush(stdin);
+		if (pilihan == 'Y' || pilihan == 'y'){
+			deQueue(Q);
+			gotoxy(30,19);printf("======= Selamat kucing anda sudah sehat!!!!! ^_^ =======\n");
+			gotoxy(30,20);printf("       encet tombol apapun untuk kembali ke menu ^_^\n");
+		}
+		else if(pilihan == 'N' || pilihan == 'n'){
+			gotoxy(30,19);printf("======= Kucing anda sedang dalam proses pengobatan =======\n");
+			gotoxy(52,20);printf("Harap bersabar ^_^\n");
+			gotoxy(38,21);printf("Penncet tombol apapun untuk kembali ke menu ^_^\n");
+		}
+	}
+    
     getch();
 }
 
