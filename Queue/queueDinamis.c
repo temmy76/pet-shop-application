@@ -152,7 +152,7 @@ void InsertPelanggan(Queue *Q){
 	printf("[==========================]\n");
 	printf("[--  Tambah Pendaftaran  --]\n");
 	printf("[==========================]\n\n");
-    printf("[=] Nama 	: "); scanf("%s", X.nama); fflush(stdin);
+    printf("[=] Nama 		: "); scanf("%s", X.nama); fflush(stdin);
     printf("[=] Jam Kedatangan 	: "); scanf("%d" , &X.waktuKedatangan); fflush(stdin);
     printf("[=] Jumlah Penyakit	: "); scanf("%d",&banyak); fflush(stdin);
 	insertListQ(&X,banyak);
@@ -164,8 +164,9 @@ void insertListQ(infoqueue *data, int jumlah){
 	List penyakit;
 	CreateList(&penyakit);
 	int i;
+	lihatTabelPenyakit();
     for(i = 0; i < jumlah; i++){
-    	printf("[=] Nama Penyakit 	: "); scanf("%s", Z.nama); fflush(stdin);
+    	printf("[=] Nama Penyakit 	: "); scanf("%[^\n]s", Z.nama); fflush(stdin);
 		InsertLast(&penyakit, Z);
 	}
 	data->penyakit.namaPenyakit = penyakit;
@@ -287,7 +288,6 @@ int hitungEstimasiSelesai(Queue Q, addrNQ data){
 void daftarPelanggan(Queue Q){
 	addrNQ p;
 	p = Q.Front;
-	address temp = p->info.penyakit.namaPenyakit.First;
 	int i = 1;
 	system("cls");
 	printf("[==========================]\n");
@@ -298,6 +298,7 @@ void daftarPelanggan(Queue Q){
 	if(p == nil){
 		printf("Tidak ada Antrian \n");
 	}else{
+			address temp = p->info.penyakit.namaPenyakit.First;
 			printf("[--------------------------]\n");
 			printf("[       Antrian Utama      ]\n");
 			printf("[--------------------------]\n\n");
@@ -329,7 +330,7 @@ void daftarPelanggan(Queue Q){
  * return S.nilaisakti * 15
  */
 int hitungLamaPenyakit(sakit S){
-	return S.nilaiSakit * 15;
+	return S.nilaiSakit * 3;
 }
 
 /* Author : Nuno Alwi Azimah
