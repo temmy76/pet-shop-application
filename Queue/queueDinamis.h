@@ -65,7 +65,7 @@ addrNQ AlokasiQ(infoqueue X);
  * I.S.: P terdefinisi.
  * F.S.: P dikembalikan ke sistem.
  */
-void DealokasiQ(addrNQ *P);
+void DealokasiQ(addrNQ P);
 
 /***** Manajemen Queue *****/
 /* Membuat sebuah Queue kosong dengan Front(Q) = Nil dan Rear (Q) = Nil 

@@ -21,6 +21,8 @@ addrNQ AlokasiQ(infoqueue X){
 	p = (addrNQ)malloc(sizeof(NodeQueue));
 	if(p != nil){
 		Info(p) = X;
+		p->info.waktuSelesai = 0;
+		p->info.waktuTunggu = 0;
 		p->next = nil;
 		return p;
 	}else {
@@ -32,8 +34,11 @@ addrNQ AlokasiQ(infoqueue X){
  * I.S.: P terdefinisi.
  * F.S.: P dikembalikan ke sistem.
  */
-void DealokasiQ(addrNQ *P){
-	free(*P);
+void DealokasiQ(addrNQ P){
+	
+	DealokasiList(P->info.penyakit.namaPenyakit.First);
+	P->info.penyakit.namaPenyakit.First = nil;
+	free(P);
 }
 
 /***** Manajemen Queue *****/
@@ -72,17 +77,23 @@ bool IsQueueEmpty(Queue Q){
 void deQueue(Queue *Q){
 	addrNQ p, prev;
 	
-	
-	if(Front(*Q)->next == nil){ 
-		//fix here
+	if(Front(*Q) == nil&& Rear(*Q) == nil ){
+		printf("Queue is Empty");
+	}else {
 		p = Front(*Q);
-		Front(*Q) = Front(*Q)->next;
+		if(p == Rear(*Q)){
+			Front(*Q) = nil;
+			Rear(*Q) = nil;
+		}else {
+			Front(*Q) = p->next;
+		}
+
 		p->next = nil;
-	}else{
-		p = Front(*Q);
-		Front(*Q) = Front(*Q)->next;
-		DealokasiQ(&p);  
+		DealokasiQ(p);
+
 	}
+	
+
 }
 
 /* Memasukkan info baru ke dalam Queue dengan aturan FIFO */
@@ -161,6 +172,7 @@ void InsertPelanggan(Queue *Q){
     gotoxy(30,10);printf("[=] Jam Kedatangan 	: "); scanf("%d" , &X.waktuKedatangan); fflush(stdin);
     gotoxy(30,11);printf("[=] Jumlah Penyakit	: "); scanf("%d",&banyak); fflush(stdin);
 	insertListQ(&X,banyak);
+	hitungPoinPenyakit(X.penyakit);
 	enQueuePrior(Q, X);
 }
 
@@ -200,7 +212,7 @@ void ProsesPelanggan(Queue *Q){
 		checkPenyakit(p->info.penyakit);
 		gotoxy(30,13);printf("[=] Penyakit		: "); PrintInfo(p->info.penyakit.namaPenyakit);
 		gotoxy(30,14);printf("[=] Estimasi Tunggu	: %d\n", hitungEstimasiTunggu(*Q, p));
-		gotoxy(30,15);printf("[=] Estimasi Selesai	: %d\n\n", hitungEstimasiSelesai(*Q, p));
+		gotoxy(30,15);printf("[=] Estimasi Selesai	: %d\n\n", hitungEstimasiSelesai(*Q, p)); 
 
 		gotoxy(30,17);printf("Apakah akan telah diobati ? [Y/N]"); scanf(" %c", &pilihan); fflush(stdin);
 		if (pilihan == 'Y' || pilihan == 'y'){
@@ -258,7 +270,10 @@ void enQueuePrior(Queue *Q, infoqueue data){
 			while ((current->next != NULL) && (current->next->info.penyakit.nilaiSakit > data.penyakit.nilaiSakit)) {
 				current = current->next;
 			}
-
+			
+			while(current->next != NULL && data.penyakit.nilaiSakit == current->next->info.penyakit.nilaiSakit){
+				current = current->next;
+			}
 			p->next = current->next;
 			current->next = p;
 		}
@@ -304,12 +319,14 @@ int hitungEstimasiSelesai(Queue Q, addrNQ data){
 	}else{
       	addrNQ curr, prev;
       	curr = Q.Front;
+		
       	while(curr != data){
           	prev =  curr;
           	curr = curr->next;
         }
-      	data->info.waktuSelesai = data->info.waktuKedatangan + hitungLamaPenyakit(data->info.penyakit);
-        return data->info.waktuSelesai;
+		
+      	curr->info.waktuSelesai = prev->info.waktuKedatangan + hitungLamaPenyakit(curr->info.penyakit);
+        return curr->info.waktuSelesai;
     }
 }
 
@@ -345,6 +362,7 @@ void daftarPelanggan(Queue Q){
 			printf("[=] Penyakit		: "); PrintInfo(p->info.penyakit.namaPenyakit);
 			printf("\n[=] Estimasi Tunggu	: %d\n", hitungEstimasiTunggu(Q, p));
 			printf("[=] Estimasi Selesai	: %d\n\n", hitungEstimasiSelesai(Q, p));
+			printf("Test : %d", hitungPoinPenyakit(p->info.penyakit));
 			i++;
 			p = p->next;
 		}
@@ -364,7 +382,7 @@ void daftarPelanggan(Queue Q){
  * return S.nilaisakti * 15
  */
 int hitungLamaPenyakit(sakit S){
-	return S.nilaiSakit * 3;
+	return hitungPoinPenyakit(S) * 5;
 }
 
 /* Author : Nuno Alwi Azimah
@@ -427,16 +445,20 @@ void checkPenyakit(sakit S){
 int hitungPoinPenyakit(sakit S){
 	address list = S.namaPenyakit.First;
 
+	S.nilaiSakit = 0;
 	toUpperStr(list->info.nama);
     while(list != Nil){
-        if(strcmp(list->info.nama,"GATAL") == 0 || strcmp(list->info.nama,"JAMURAN") == 0 || strcmp(list->info.nama,"MENCRET") == 0 ) S.nilaiSakit += 1;
-        else if(strcmp(list->info.nama,"BARU") == 0 || strcmp(list->info.nama,"DIABETES") == 0 || strcmp(list->info.nama,"RABIES") == 0 || strcmp(list->info.nama,"CACING HATI") == 0) S.nilaiSakit += 3;
-        else if(strcmp(list->info.nama,"KANKER") == 0 || strcmp(list->info.nama,"FIV") == 0 || strcmp(list->info.nama,"INFEKSI PERNAFASAN") == 0) S.nilaiSakit += 5;
+        if(strcmp(list->info.nama,"GATAL") == 0 || strcmp(list->info.nama,"JAMURAN") == 0 || strcmp(list->info.nama,"MENCRET") == 0 ) S.nilaiSakit = S.nilaiSakit + 1;
+        else if(strcmp(list->info.nama,"DIABETES") == 0 || strcmp(list->info.nama,"RABIES") == 0 || strcmp(list->info.nama,"CACING HATI") == 0) S.nilaiSakit = S.nilaiSakit +  3;
+        else if(strcmp(list->info.nama,"KANKER") == 0 || strcmp(list->info.nama,"FIV") == 0 || strcmp(list->info.nama,"INFEKSI PERNAFASAN") == 0) S.nilaiSakit = S.nilaiSakit + 5;
+		else if(strcmp(list->info.kategori, "BARU") == 0) S.nilaiSakit = S.nilaiSakit + 2;
 
 
         list = list->next;
     }
-  	return S.nilaiSakit;
+
+	return S.nilaiSakit;
+  	
 }
 
 /* Author : Nuno Alwi Azimah

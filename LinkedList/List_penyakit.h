@@ -40,7 +40,7 @@ address Alokasi(infotype  X);
  /* menghasilkan   P,  maka info(P)=X,  Nest(P)=Nil;               */
  /* Jika alokasi  gagal,  mengirimkan  Nil 			   */
 
-void Dealokasi(address *P);
+void Dealokasi(address P);
 /* I.S  :   P  terdefinisi         	*/
 /* F.S  :   P dikembalikan ke  sistem 	*/
 /*   	    Melakukan  dealokasi, pengembalian address  P */
@@ -57,5 +57,5 @@ int HitungElement(List L);
 /* Mengirimkan banyaknya elemen list, mengirimkan Nol jika kosong */
 
 void PrintInfo(List L);
-    
+void DealokasiList(address node);
 #endif

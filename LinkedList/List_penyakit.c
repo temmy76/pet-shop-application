@@ -23,12 +23,12 @@ address Alokasi(infotype  X){
     return p;
 }
 
-void Dealokasi(address *P){
+void Dealokasi(address P){
   /* I.S  : P terdefinisi      				*/
   /* F.S  : P dikembalikan ke  sistem 			*/
   /*   	    Melakukan dealokasi, pengembalian address P */
-    (*P)->next = Nil;
-    free(*P);
+    P->next = Nil;
+    free(P);
 }
 
 void InsertLast(List *L, infotype X){
@@ -68,7 +68,7 @@ int HitungElement(List L){
         }while(P != Nil);
     }
     return jumlah;
-}
+} /* Mengirimkan banyaknya elemen list, mengirimkan Nol jika kosong */
 
 /* *************PROSES SEMUA ELEMEN ****************   */
 void PrintInfo(List L)
@@ -88,4 +88,13 @@ void PrintInfo(List L)
 	    } while(P!=Nil); 
 	 }
 }
-/* Mengirimkan banyaknya elemen list, mengirimkan Nol jika kosong */
+
+
+void DealokasiList(address node){
+
+    if(node->next != NULL){
+        DealokasiList(node->next);
+    }
+
+    Dealokasi(node);
+}
