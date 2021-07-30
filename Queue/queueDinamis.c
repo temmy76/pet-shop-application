@@ -261,17 +261,17 @@ void enQueuePrior(Queue *Q, infoqueue data){
 	}else{
 		addrNQ curr, prev, temp;
 		curr = Q->Front->next;
-		if (curr->info.penyakit.nilaiSakit < data.penyakit.nilaiSakit) {
+		if (hitungPoinPenyakit(curr->info.penyakit) < hitungPoinPenyakit(data.penyakit)) {
 			p->next = curr;
 			Q->Front->next = p;
 			curr = p;
 		} else {
 			addrNQ current = curr;
-			while ((current->next != NULL) && (current->next->info.penyakit.nilaiSakit > data.penyakit.nilaiSakit)) {
+			while ((current->next != NULL) && (hitungPoinPenyakit(current->next->info.penyakit) > hitungPoinPenyakit(data.penyakit))) {
 				current = current->next;
 			}
 			
-			while(current->next != NULL && data.penyakit.nilaiSakit == current->next->info.penyakit.nilaiSakit){
+			while(current->next != NULL && hitungPoinPenyakit(data.penyakit) == hitungPoinPenyakit(current->next->info.penyakit)){
 				current = current->next;
 			}
 			p->next = current->next;
@@ -362,7 +362,6 @@ void daftarPelanggan(Queue Q){
 			printf("[=] Penyakit		: "); PrintInfo(p->info.penyakit.namaPenyakit);
 			printf("\n[=] Estimasi Tunggu	: %d\n", hitungEstimasiTunggu(Q, p));
 			printf("[=] Estimasi Selesai	: %d\n\n", hitungEstimasiSelesai(Q, p));
-			printf("Test : %d", hitungPoinPenyakit(p->info.penyakit));
 			i++;
 			p = p->next;
 		}
