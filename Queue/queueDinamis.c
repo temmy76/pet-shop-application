@@ -206,7 +206,7 @@ void ProsesPelanggan(Queue *Q){
 	if(p == nil){
 		gotoxy(39,11);printf(" !!! Tidak ada Antrian !!!\n");
 	}else {
-		gotoxy(30,10);printf("[=] Nama 		: %s \n", p->info.nama);
+		gotoxy(30,10);printf("[=] Nama 			: %s \n", p->info.nama);
 		gotoxy(30,11);printf("[=] Jam Kedatangan 	: %d\n", p->info.waktuKedatangan);
 		gotoxy(30,12);printf("[=] Jumlah Penyakit	: %d\n", HitungElement(p->info.penyakit.namaPenyakit));
 		checkPenyakit(p->info.penyakit);
