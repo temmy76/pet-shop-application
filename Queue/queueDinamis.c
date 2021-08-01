@@ -212,9 +212,9 @@ void ProsesPelanggan(Queue *Q){
     char pilihan;
 
     system("cls");
-    for (int i = 2; i <27 ; ++i) {
-        gotoxy(15,i);printf("||                                                                                     ||\n");
-    }
+//    for (int i = 2; i <27 ; ++i) {
+//        gotoxy(15,i);printf("||                                                                                     ||\n");
+//    }
     gotoxy(15,2);printf("=========================================================================================\n");
     gotoxy(19,4);printf("***   ***   ******      ***   ***   *********   ******      ******      ***   ***\n");
     gotoxy(19,5);printf("***   ***   **    **    ***   ***   ***         **    **    **    **    ***   ***\n");
@@ -222,20 +222,20 @@ void ProsesPelanggan(Queue *Q){
     gotoxy(19,7);printf("*********   **    **    *********         ***   **    **    **    **    ***   ***\n");
     gotoxy(19,8);printf("*********   ******      *********   *********   ******      ******      ***   ***\n");
     gotoxy(15,10);printf("=========================================================================================\n");
-    gotoxy(15,27);printf("=========================================================================================\n");
+//    gotoxy(15,27);printf("=========================================================================================\n");
     gotoxy(36,12);printf("[==========================================]\n");
 	gotoxy(36,13);printf("[---            Proses Antrian          ---]\n");
 	gotoxy(36,14);printf("[==========================================]\n\n");
 	if(p == nil){
 		gotoxy(36,16);printf(" !!! Tidak ada Antrian !!!\n");
 	}else {
-		gotoxy(36,16);printf("[=] Nama      : %s \n", p->info.nama);
-		gotoxy(36,17);printf("[=] Jam Kedatangan 	    : %d\n", p->info.waktuKedatangan);
-		gotoxy(36,18);printf("[=] Jumlah Penyakit	    : %d\n", HitungElement(p->info.penyakit.namaPenyakit));
+		gotoxy(25,16);printf("[=] Nama                  : %s \n", p->info.nama);
+		gotoxy(25,17);printf("[=] Jam Kedatangan        : %d\n", p->info.waktuKedatangan);
+		gotoxy(25,18);printf("[=] Jumlah Penyakit       : %d\n", HitungElement(p->info.penyakit.namaPenyakit));
 		checkPenyakit(p->info.penyakit);
-		gotoxy(36,19);printf("[=] Penyakit	: "); PrintInfo(p->info.penyakit.namaPenyakit);
-		gotoxy(36,20);printf("[=] Estimasi Tunggu	    : %d\n", hitungEstimasiTunggu(*Q, p));
-		gotoxy(36,21);printf("[=] Estimasi Selesai  : %d\n\n", hitungEstimasiSelesai(*Q, p));
+		gotoxy(25,19);printf("[=] Penyakit              : "); PrintInfo(p->info.penyakit.namaPenyakit);
+		gotoxy(25,20);printf("[=] Estimasi Tunggu       : %d\n", hitungEstimasiTunggu(*Q, p));
+		gotoxy(25,21);printf("[=] Estimasi Selesai      : %d\n\n", hitungEstimasiSelesai(*Q, p));
 
 		gotoxy(36,23);printf("Apakah akan telah diobati ? [Y/N]"); scanf(" %c", &pilihan); fflush(stdin);
 		if (pilihan == 'Y' || pilihan == 'y'){
@@ -389,13 +389,13 @@ void daftarPelanggan(Queue Q){
 //			gotoxy(30,17);printf("[               Antrian Utama              ]\n");
 //			gotoxy(30,18);printf("[------------------------------------------]\n\n");
 			while(p != nil){
-                gotoxy(36,16+(i*16));printf("[Antrian ke %d]", i+1);
-                gotoxy(36,17+(i*16)+1);printf("[=] Nama 		        : %s", p->info.nama);
-                gotoxy(36,18+(i*16)+2);printf("[=] Jam Kedatangan 	        : %d", p->info.waktuKedatangan);
-                gotoxy(36,19+(i*16)+3);printf("[=] Jumlah Penyakit	        : %d", HitungElement(p->info.penyakit.namaPenyakit));checkPenyakit(p->info.penyakit);
-                gotoxy(36,20+(i*16)+4);printf("[=] Penyakit		: "); PrintInfo(p->info.penyakit.namaPenyakit);
-                gotoxy(36,21+(i*16)+5);printf("[=] Estimasi Tunggu	        : %d", hitungEstimasiTunggu(Q, p));
-                gotoxy(36,22+(i*16)+6);printf("[=] Estimasi Selesai	: %d", hitungEstimasiSelesai(Q, p));
+                gotoxy(25,16+(i*16));printf("[Antrian ke %d]", i+1);
+                gotoxy(25,17+(i*16)+1);printf("[=] Nama                 : %s", p->info.nama);
+                gotoxy(25,18+(i*16)+2);printf("[=] Jam Kedatangan       : %d", p->info.waktuKedatangan);
+                gotoxy(25,19+(i*16)+3);printf("[=] Jumlah Penyakit      : %d", HitungElement(p->info.penyakit.namaPenyakit));checkPenyakit(p->info.penyakit);
+                gotoxy(25,20+(i*16)+4);printf("[=] Penyakit             : "); PrintInfo(p->info.penyakit.namaPenyakit);
+                gotoxy(25,21+(i*16)+5);printf("[=] Estimasi Tunggu      : %d", hitungEstimasiTunggu(Q, p));
+                gotoxy(25,22+(i*16)+6);printf("[=] Estimasi Selesai     : %d", hitungEstimasiSelesai(Q, p));
                 // printf(" please %d\n", p->info.penyakit.nilaiSakit);
                 i++;
                 p = p->next;
