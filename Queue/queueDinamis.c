@@ -254,18 +254,18 @@ void enQueuePrior(Queue *Q, infoqueue data){
 	// printf("test ");
 	if(Front(*Q) == nil){ // check apa bila kosong
 		enQueue(Q, data);
-		printf("kosong\n");
+		// printf("kosong\n");
 	}else if(Front(*Q) == Rear(*Q)){ // check apabila queue cuma satu
 		 enQueue(Q, data);
-		 printf("data cuma 1\n");
+		//  printf("data cuma 1\n");
 	}else if(hitungPoinPenyakit(p->info.penyakit) <= hitungPoinPenyakit(Q->Rear->info.penyakit) ){
 		enQueue(Q, data);
-		 printf("data 2\n");
+		//  printf("data 2\n");
 	}else{
 		addrNQ current, prev, temp;
 		current = Q->Front->next;
 		prev = Q->Front;
-		printf("sebelum sorting");
+		// printf("sebelum sorting");
 		while ((current->next != NULL) && (hitungPoinPenyakit(current->next->info.penyakit) >=hitungPoinPenyakit(p->info.penyakit) )) {
 			prev = current;
 			current = current->next;
@@ -273,7 +273,7 @@ void enQueuePrior(Queue *Q, infoqueue data){
 		prev->next = p;
 		p->next = current;
 		current = p;
-		printf("sorting");
+		// printf("sorting");
 		addrNQ last = Front(*Q);
 		while(last->next != nil){
 			last = last->next;
