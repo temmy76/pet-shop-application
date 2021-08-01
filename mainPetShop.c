@@ -9,10 +9,10 @@ int main(){
     CreateQueue(&antrian);
     do{
         menu(); 
-        gotoxy(30,16);printf("Pilih : "); scanf("%d",&pilihan);
+        gotoxy(55,25);printf("Pilih : "); scanf("%d",&pilihan);
         switch (pilihan) {
             case 1:
-                lihatTabelPenyakit();getch();
+                lihatTabelPenyakit(36);getch();
                 break;
 
             case 2:
@@ -27,7 +27,7 @@ int main(){
                 ProsesPelanggan(&antrian);
                 break;
             case 5:
-                gotoxy(30,18);printf("Terimakasih sudah menggunakan aplikasi kami");
+                gotoxy(40,25);printf("Terimakasih sudah menggunakan aplikasi kami");
                 getch();
                 break;
         }

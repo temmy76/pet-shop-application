@@ -159,7 +159,7 @@ void hitungPoinPenyakit(sakit *S);
 /* Memperlihatkan tabel penyakit dengan poin sakit
    I.S.: tidak ada tabel
    F.S.: Mengetahui poin-poin dari setiap penyakit */
-void lihatTabelPenyakit();
+void lihatTabelPenyakit(int posisi);
 
 /* Memperlihatkan menu dari aplikasi
    I.S.: layar kosong
