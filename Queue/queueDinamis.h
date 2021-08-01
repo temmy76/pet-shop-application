@@ -154,7 +154,7 @@ void checkPenyakit(sakit S);
 /* Menghitung poin dari list penyakit
    I.S.: nilai sakit kosong
    F.S.: Mengembalikan nilai poin nilai penyakit */
-int hitungPoinPenyakit(sakit S);
+void hitungPoinPenyakit(sakit *S);
 
 /* Memperlihatkan tabel penyakit dengan poin sakit
    I.S.: tidak ada tabel

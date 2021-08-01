@@ -172,7 +172,7 @@ void InsertPelanggan(Queue *Q){
     gotoxy(30,10);printf("[=] Jam Kedatangan 	: "); scanf("%d" , &X.waktuKedatangan); fflush(stdin);
     gotoxy(30,11);printf("[=] Jumlah Penyakit	: "); scanf("%d",&banyak); fflush(stdin);
 	insertListQ(&X,banyak);
-	hitungPoinPenyakit(X.penyakit);
+	hitungPoinPenyakit(&X.penyakit);
 	enQueuePrior(Q, X);
 }
 
@@ -258,15 +258,23 @@ void enQueuePrior(Queue *Q, infoqueue data){
 	}else if(Front(*Q) == Rear(*Q)){ // check apabila queue cuma satu
 		 enQueue(Q, data);
 		//  printf("data cuma 1\n");
-	}else if(hitungPoinPenyakit(p->info.penyakit) <= hitungPoinPenyakit(Q->Rear->info.penyakit) ){
+	}else if(p->info.penyakit.nilaiSakit <= Q->Rear->info.penyakit.nilaiSakit ){
+		// printf("rear %d", Q->Rear->info.penyakit.nilaiSakit);
+		// printf("P %d", p->info.penyakit.nilaiSakit);
 		enQueue(Q, data);
 		//  printf("data 2\n");
 	}else{
+		// printf("rear %d", Q->Rear->info.penyakit.nilaiSakit);
+		// printf("P %d", p->info.penyakit.nilaiSakit);
 		addrNQ current, prev, temp;
 		current = Q->Front->next;
 		prev = Q->Front;
 		// printf("sebelum sorting");
-		while ((current->next != NULL) && (hitungPoinPenyakit(current->next->info.penyakit) >=hitungPoinPenyakit(p->info.penyakit) )) {
+		while ((current->next != NULL) && (current->info.penyakit.nilaiSakit > p->info.penyakit.nilaiSakit )) {
+			prev = current;
+			current = current->next;
+		}
+		while ((current->next != NULL) && (current->info.penyakit.nilaiSakit == p->info.penyakit.nilaiSakit )) {
 			prev = current;
 			current = current->next;
 		}
@@ -357,6 +365,7 @@ void daftarPelanggan(Queue Q){
 			printf("[=] Penyakit		: "); PrintInfo(p->info.penyakit.namaPenyakit);
 			printf("\n[=] Estimasi Tunggu	: %d\n", hitungEstimasiTunggu(Q, p));
 			printf("[=] Estimasi Selesai	: %d\n\n", hitungEstimasiSelesai(Q, p));
+			// printf(" please %d\n", p->info.penyakit.nilaiSakit);
 			i++;
 			p = p->next;
 		}
@@ -376,7 +385,7 @@ void daftarPelanggan(Queue Q){
  * return S.nilaisakti * 15
  */
 int hitungLamaPenyakit(sakit S){
-	return hitungPoinPenyakit(S) * 5;
+	return S.nilaiSakit * 5;
 }
 
 /* Author : Nuno Alwi Azimah
@@ -436,22 +445,19 @@ void checkPenyakit(sakit S){
  * {end while}
  * return S.nilaisakit
  */
-int hitungPoinPenyakit(sakit S){
-	address list = S.namaPenyakit.First;
-
-	S.nilaiSakit = 0;
+void hitungPoinPenyakit(sakit *S){
+	address list = S->namaPenyakit.First;
+	S->nilaiSakit = 0;
 	toUpperStr(list->info.nama);
     while(list != Nil){
-        if(strcmp(list->info.nama,"GATAL") == 0 || strcmp(list->info.nama,"JAMURAN") == 0 || strcmp(list->info.nama,"MENCRET") == 0 ) S.nilaiSakit = S.nilaiSakit + 1;
-        else if(strcmp(list->info.nama,"DIABETES") == 0 || strcmp(list->info.nama,"RABIES") == 0 || strcmp(list->info.nama,"CACING HATI") == 0) S.nilaiSakit = S.nilaiSakit +  3;
-        else if(strcmp(list->info.nama,"KANKER") == 0 || strcmp(list->info.nama,"FIV") == 0 || strcmp(list->info.nama,"INFEKSI PERNAFASAN") == 0) S.nilaiSakit = S.nilaiSakit + 5;
-		else if(strcmp(list->info.kategori, "BARU") == 0) S.nilaiSakit = S.nilaiSakit + 2;
-
-
+		toUpperStr(list->info.nama);
+        if(strcmp(list->info.nama,"GATAL") == 0 || strcmp(list->info.nama,"JAMURAN") == 0 || strcmp(list->info.nama,"MENCRET") == 0 ) S->nilaiSakit = S->nilaiSakit + 1;
+        else if(strcmp(list->info.nama,"DIABETES") == 0 || strcmp(list->info.nama,"RABIES") == 0 || strcmp(list->info.nama,"CACING HATI") == 0) S->nilaiSakit = S->nilaiSakit + 3;
+        else if(strcmp(list->info.nama,"KANKER") == 0 || strcmp(list->info.nama,"FIV") == 0 || strcmp(list->info.nama,"INFEKSI PERNAFASAN") == 0) S->nilaiSakit = S->nilaiSakit + 5;
+        else S->nilaiSakit = S->nilaiSakit + 2;
         list = list->next;
     }
-
-	return S.nilaiSakit;
+	// printf("%d", S->nilaiSakit); 
   	
 }
 
