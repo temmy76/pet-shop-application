@@ -2,23 +2,29 @@
 
 int main(){
     Queue test;
-    infoqueue X, Y, Z;
+    infoqueue X, Y, Z, W, B;
     CreateQueue(&test);
 
-    X.penyakit.nilaiSakit = 4;
-    Y.penyakit.nilaiSakit = 5;
-    Z.penyakit.nilaiSakit = 10;
+    X.penyakit.nilaiSakit = 7;
+    Y.penyakit.nilaiSakit = 9;
+    Z.penyakit.nilaiSakit = 11;
+    W.penyakit.nilaiSakit = 4;
+    B.penyakit.nilaiSakit = 11;
+    
 
     enQueuePrior(&test, X);
     enQueuePrior(&test, Y);
     enQueuePrior(&test, Z);
+    enQueuePrior(&test, W);
+    enQueuePrior(&test, B);
 
     List Test1, Test2, Test3;
     CreateList(&Test1);
     CreateList(&Test2);
     CreateList(&Test3);
     
-    infotype x, x2, x3;
+    
+    infotype x, x2, x3, x4;
     strcpy(x.nama, "Testing nama 1\n");
     strcpy(x.kategori, "Testingg Kategori 1\n");
     InsertLast(&Test1, x);
@@ -32,10 +38,13 @@ int main(){
     test.Front->info.penyakit.namaPenyakit = Test1;
     test.Front->next->info.penyakit.namaPenyakit = Test2;
     test.Front->next->next->info.penyakit.namaPenyakit = Test3;
+    
+    printInfoQueue(test);
+    printf("rear %d\n", test.Rear->info.penyakit.nilaiSakit);
 
-    printf(" test 1 %s\n", test.Front->info.penyakit.namaPenyakit.First->info.kategori);
-    printf(" test 2 %s\n", test.Front->next->info.penyakit.namaPenyakit.First->info.kategori);
-    printf(" test 3 %s\n", test.Front->next->next->info.penyakit.namaPenyakit.First->info.kategori);
+    // printf(" test 1 %s\n", test.Front->info.penyakit.namaPenyakit.First->info.kategori);
+    // printf(" test 2 %s\n", test.Front->next->info.penyakit.namaPenyakit.First->info.kategori);
+    // printf(" test 3 %s\n", test.Front->next->next->info.penyakit.namaPenyakit.First->info.kategori);
     system("pause");
     return 0;
 

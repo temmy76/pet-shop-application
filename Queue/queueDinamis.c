@@ -147,10 +147,10 @@ void printInfoQueue(Queue Q){
 		printf("Antrian Kosong \n");
 	}else {
 		while(p->next != nil){
-			printf("[ %d ] - ", Info(p));
+			printf("[ %d ] - ", Info(p).penyakit.nilaiSakit);
 			p = p->next;
 		}
-		printf("[ %d ] - \n", Info(p));
+		printf("[ %d ] - \n", Info(p).penyakit.nilaiSakit);
 	}
 }
 
@@ -254,33 +254,28 @@ void enQueuePrior(Queue *Q, infoqueue data){
 	// printf("test ");
 	if(Front(*Q) == nil){ // check apa bila kosong
 		enQueue(Q, data);
-		// printf("kosong\n");
-	}else if(Front(*Q)->next == nil){ // check apabila queue cuma satu
+		printf("kosong\n");
+	}else if(Front(*Q) == Rear(*Q)){ // check apabila queue cuma satu
 		 enQueue(Q, data);
-		//  printf("data cuma 1\n");
+		 printf("data cuma 1\n");
+	}else if(hitungPoinPenyakit(p->info.penyakit) <= hitungPoinPenyakit(Q->Rear->info.penyakit) ){
+		enQueue(Q, data);
+		 printf("data 2\n");
 	}else{
-		addrNQ curr, prev, temp;
-		curr = Q->Front->next;
-		if (hitungPoinPenyakit(curr->info.penyakit) < hitungPoinPenyakit(data.penyakit)) {
-			p->next = curr;
-			Q->Front->next = p;
-			curr = p;
-		} else {
-			addrNQ current = curr;
-			while ((current->next != NULL) && (hitungPoinPenyakit(current->next->info.penyakit) > hitungPoinPenyakit(data.penyakit))) {
-				current = current->next;
-			}
-			
-			while(current->next != NULL && hitungPoinPenyakit(data.penyakit) == hitungPoinPenyakit(current->next->info.penyakit)){
-				current = current->next;
-			}
-			p->next = current->next;
-			current->next = p;
+		addrNQ current, prev, temp;
+		current = Q->Front->next;
+		prev = Q->Front;
+		printf("sebelum sorting");
+		while ((current->next != NULL) && (hitungPoinPenyakit(current->next->info.penyakit) >=hitungPoinPenyakit(p->info.penyakit) )) {
+			prev = current;
+			current = current->next;
 		}
-		// printf("data banyak terakhir\n");
-
+		prev->next = p;
+		p->next = current;
+		current = p;
+		printf("sorting");
 		addrNQ last = Front(*Q);
-		while(last != nil){
+		while(last->next != nil){
 			last = last->next;
 		}
 		Rear(*Q) = last;
