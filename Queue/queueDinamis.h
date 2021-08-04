@@ -168,5 +168,5 @@ void menu();
 
 void toUpperStr(char str[]);
 
-void tulisFile(Queue Q, addrNQ data);
+void tulisFile(addrNQ data);
 #endif // QUEUE_H
