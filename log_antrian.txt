@@ -1,0 +1,7 @@
+
+[=] Nama                  : 
+[=] Jam Kedatangan        : 
+[=] Jumlah Penyakit       : 
+[=] Penyakit              : 
+[=] Estimasi Tunggu       : 
+[=] Estimasi Selesai      : 

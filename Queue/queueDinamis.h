@@ -167,4 +167,6 @@ void lihatTabelPenyakit(int posisi);
 void menu();
 
 void toUpperStr(char str[]);
+
+void tulisFile(Queue Q);
 #endif // QUEUE_H

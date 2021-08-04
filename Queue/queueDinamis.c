@@ -240,6 +240,7 @@ void ProsesPelanggan(Queue *Q){
 		gotoxy(36,23);printf("Apakah akan telah diobati ? [Y/N]"); scanf(" %c", &pilihan); fflush(stdin);
 		if (pilihan == 'Y' || pilihan == 'y'){
 			deQueue(Q);
+			tulisFile(*Q);
 			gotoxy(30,23);printf("======= Selamat kucing anda sudah sehat!!!!! ^_^ =======\n");
 			gotoxy(35,24);printf("Pencet tombol apapun untuk kembali ke menu ^_^\n");
 		}
@@ -413,7 +414,7 @@ void daftarPelanggan(Queue Q){
  * kamus
  *
  * algorima
- * return S.nilaisakti * 15
+ * return S.nilaisakti * 5
  */
 int hitungLamaPenyakit(sakit S){
 	return S.nilaiSakit * 5;
@@ -574,4 +575,41 @@ void toUpperStr(char str[]){
             str[i] = str[i] - 32;
         }
     }
+}
+
+void tulisFile(Queue Q){
+    addrNQ p;
+    p = Q.Front;
+    char nama[50];
+    FILE *fptr;
+
+    // membuka file
+    fptr = fopen("log_antrian.txt","w");
+
+    // menulis ke text ke file
+    fputs("\n[=] Nama                  : ", fptr); fputs(p->info.nama, fptr);
+    fputs("\n[=] Jam Kedatangan        : ", fptr);
+    fputs("\n[=] Jumlah Penyakit       : ", fptr);
+//    checkPenyakit(p->info.penyakit);
+    fputs("\n[=] Penyakit              : ", fptr);
+    fputs("\n[=] Estimasi Tunggu       : ", fptr);
+    fputs("\n[=] Estimasi Selesai      : ", fptr);
+
+    printf("\n\nHistory Antiran berhasil dimasukan ^_^\n");
+    // tutup file
+    fclose(fptr);
+
+
+//
+//    // membuka file untuk ditulis
+//    fptr = fopen("antrian_log.txt","w");
+//
+//
+//    // menulis ke text ke file
+//    fputs(nama, fptr);
+//
+//    printf("History Antiran berhasil dimasukan ^_^\n");
+//
+//    // tutup file setelah ditulis
+//    fclose(fptr);
 }

@@ -22,16 +22,18 @@ int main(){
             case 3:
                 daftarPelanggan(antrian);
                 break;
-
             case 4:
                 ProsesPelanggan(&antrian);
                 break;
             case 5:
+                ProsesPelanggan(&antrian);
+                break;
+            case 6:
                 gotoxy(40,25);printf("Terimakasih sudah menggunakan aplikasi kami");
                 getch();
                 break;
         }
-    }while(pilihan != 5);
+    }while(pilihan != 6);
 
     
     return 0;
