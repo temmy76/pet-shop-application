@@ -239,8 +239,8 @@ void ProsesPelanggan(Queue *Q){
 
 		gotoxy(36,23);printf("Apakah akan telah diobati ? [Y/N]"); scanf(" %c", &pilihan); fflush(stdin);
 		if (pilihan == 'Y' || pilihan == 'y'){
+			tulisFile(*Q,p);
 			deQueue(Q);
-			tulisFile(*Q);
 			gotoxy(30,23);printf("======= Selamat kucing anda sudah sehat!!!!! ^_^ =======\n");
 			gotoxy(35,24);printf("Pencet tombol apapun untuk kembali ke menu ^_^\n");
 		}
@@ -577,23 +577,21 @@ void toUpperStr(char str[]){
     }
 }
 
-void tulisFile(Queue Q){
-    addrNQ p;
-    p = Q.Front;
+void tulisFile(Queue Q, addrNQ data){
     char nama[50];
     FILE *fptr;
 
     // membuka file
-    fptr = fopen("log_antrian.txt","w");
+    fptr = fopen("log_antrian.txt","w+");
 
     // menulis ke text ke file
-    fputs("\n[=] Nama                  : ", fptr); fputs(p->info.nama, fptr);
-    fputs("\n[=] Jam Kedatangan        : ", fptr);
-    fputs("\n[=] Jumlah Penyakit       : ", fptr);
+    fputs("\n[=] Nama                  : ", fptr); fputs(data->info.nama, fptr);
+    fputs("\n[=] Jam Kedatangan        : ", fptr); fputw(data->info.waktuKedatangan, fptr);
+    fputs("\n[=] Jumlah Penyakit       : ", fptr); fputw(HitungElement(data->info.penyakit.namaPenyakit), fptr);
 //    checkPenyakit(p->info.penyakit);
-    fputs("\n[=] Penyakit              : ", fptr);
-    fputs("\n[=] Estimasi Tunggu       : ", fptr);
-    fputs("\n[=] Estimasi Selesai      : ", fptr);
+    fputs("\n[=] Penyakit              : ", fptr); fputs("acan", fptr);
+    fputs("\n[=] Estimasi Tunggu       : ", fptr); fputw(hitungEstimasiTunggu(Q, data), fptr);
+    fputs("\n[=] Estimasi Selesai      : ", fptr); fputw(hitungEstimasiSelesai(Q, data), fptr);
 
     printf("\n\nHistory Antiran berhasil dimasukan ^_^\n");
     // tutup file
