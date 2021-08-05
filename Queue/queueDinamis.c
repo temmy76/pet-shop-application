@@ -589,9 +589,9 @@ void tulisFile(addrNQ data){
     fptr = fopen("log_antrian.txt","a+");
 
     // memindahkan
-    itoa(data->info.waktuKedatangan,datang,10);
-    itoa(data->info.waktuTunggu,tunggu,10);
-    itoa(data->info.waktuSelesai,selesai,10);
+//    itoa(data->info.waktuKedatangan,datang,10);
+//    itoa(data->info.waktuTunggu,tunggu,10);
+//    itoa(data->info.waktuSelesai,selesai,10);
 
     banyak = HitungElement(data->info.penyakit.namaPenyakit);
     itoa(banyak,jumlah,10);
@@ -600,7 +600,7 @@ void tulisFile(addrNQ data){
 
     // menulis ke text ke file
     fputs("[=] Nama                  : ", fptr); fputs(data->info.nama, fptr);
-    fputs("\n[=] Jam Kedatangan        : ", fptr); fputs(datang, fptr);
+//    fputs("\n[=] Jam Kedatangan        : ", fptr); fputs(datang, fptr);
     fputs("\n[=] Jumlah Penyakit       : ", fptr); fputs(jumlah, fptr);
     fputs("\n[=] Penyakit              : ", fptr);
     while (penyakit != NULL ){
@@ -609,8 +609,8 @@ void tulisFile(addrNQ data){
         fputs(namaSakit, fptr); fputs(" ( ", fptr); fputs(kategoriSakit, fptr); fputs(" ), ", fptr);
         penyakit = penyakit->next;
     }
-    fputs("\n[=] Estimasi Tunggu       : ", fptr); fputs(tunggu, fptr);
-    fputs("\n[=] Estimasi Selesai      : ", fptr); fputs(selesai, fptr);
+//    fputs("\n[=] Estimasi Tunggu       : ", fptr); fputs(tunggu, fptr);
+//    fputs("\n[=] Estimasi Selesai      : ", fptr); fputs(selesai, fptr);
     fputs("\n\n", fptr);
 
     // tutup file
