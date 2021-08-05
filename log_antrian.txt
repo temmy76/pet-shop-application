@@ -1,6 +1,14 @@
-
-[=] Nama                  : NUNO
+[=] Nama                  : nuno
 [=] Jam Kedatangan        : 2
 [=] Jumlah Penyakit       : 1
+[=] Penyakit              : A ( BARU ), 
 [=] Estimasi Tunggu       : 0
-[=] Estimasi Selesai      : 27
+[=] Estimasi Selesai      : 12
+
+[=] Nama                  : tiga
+[=] Jam Kedatangan        : 2
+[=] Jumlah Penyakit       : 2
+[=] Penyakit              : A ( BARU ), G ( BARU ), 
+[=] Estimasi Tunggu       : 0
+[=] Estimasi Selesai      : 22
+

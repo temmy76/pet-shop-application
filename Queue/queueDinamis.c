@@ -7,6 +7,7 @@
 #include "queueDinamis.h"
 #include <stdio.h>
 #include <string.h>
+#include <conio.h>
 #include <ctype.h>
 
 /***** Manajemen memori *****/
@@ -242,7 +243,8 @@ void ProsesPelanggan(Queue *Q){
 			tulisFile(p);
 			deQueue(Q);
 			gotoxy(30,23);printf("======= Selamat kucing anda sudah sehat!!!!! ^_^ =======\n");
-			gotoxy(35,24);printf("Pencet tombol apapun untuk kembali ke menu ^_^\n");
+            gotoxy(40,24);printf("History Antiran berhasil dimasukan ^_^");
+			gotoxy(35,25);printf("Pencet tombol apapun untuk kembali ke menu ^_^\n");
 		}
 		else if(pilihan == 'N' || pilihan == 'n'){
 			gotoxy(30,23);printf("======= Kucing anda sedang dalam proses pengobatan =======\n");
@@ -561,9 +563,9 @@ void menu(){
     gotoxy(15,14);printf("=========================================================================================\n");
     gotoxy(15,27);printf("=========================================================================================\n");
     gotoxy(19,16);printf("                                   DAFTAR FITUR                                  \n");
-    gotoxy(19,19);printf("            1.            2.            3.            4.            5.           \n");
-    gotoxy(19,20);printf("       Lihat Tabel      Tambah        Daftar        Proses         Exit          \n");
-    gotoxy(19,21);printf("        Penyakit       Pendaftar     Pendaftar     Pendaftar      Program        \n");
+    gotoxy(19,19);printf("        1.            2.           3.           4.            5.         6.      \n");
+    gotoxy(19,20);printf("    Lihat Tabel     Tambah       Daftar       Proses       History      Exit     \n");
+    gotoxy(19,21);printf("     Penyakit      Pendaftar    Pendaftar    Pendaftar    Pendaftar    Program   \n");
 //    gotoxy(19,18);printf("                                                                                 \n");
 }
 
@@ -597,32 +599,61 @@ void tulisFile(addrNQ data){
     penyakit = data->info.penyakit.namaPenyakit.First;
 
     // menulis ke text ke file
-    fputs("\n[=] Nama                  : ", fptr); fputs(data->info.nama, fptr);
+    fputs("[=] Nama                  : ", fptr); fputs(data->info.nama, fptr);
     fputs("\n[=] Jam Kedatangan        : ", fptr); fputs(datang, fptr);
     fputs("\n[=] Jumlah Penyakit       : ", fptr); fputs(jumlah, fptr);
-    while (penyakit->next != NULL ){
+    fputs("\n[=] Penyakit              : ", fptr);
+    while (penyakit != NULL ){
         strcpy(namaSakit,penyakit->info.nama);
         strcpy(kategoriSakit,penyakit->info.kategori);
-        fputs("\n[=] Penyakit              : ", fptr); fputs(namaSakit, fptr); fputs(" ( ", fptr); fputs(kategoriSakit, fptr); fputs(" ), ", fptr);
+        fputs(namaSakit, fptr); fputs(" ( ", fptr); fputs(kategoriSakit, fptr); fputs(" ), ", fptr);
         penyakit = penyakit->next;
     }
     fputs("\n[=] Estimasi Tunggu       : ", fptr); fputs(tunggu, fptr);
     fputs("\n[=] Estimasi Selesai      : ", fptr); fputs(selesai, fptr);
-    printf("\n\nHistory Antiran berhasil dimasukan ^_^\n");
+    fputs("\n\n", fptr);
+
     // tutup file
     fclose(fptr);
+}
+
+void bacaFile(){
+    system("cls");
+    system("color a");
+    for (int i = 2; i <14 ; ++i) {
+        gotoxy(15,i);printf("||                                                                                     ||\n");
+    }
+
+    gotoxy(15,2);printf("=========================================================================================\n");
+    gotoxy(19,4);printf("                                   WELCOME  TO                                   \n");
+    gotoxy(19,6);printf("***   ***   ******      ***   ***   *********   ******      ******      ***   ***\n");
+    gotoxy(19,7);printf("***   ***   **    **    ***   ***   ***         **    **    **    **    ***   ***\n");
+    gotoxy(19,8);printf("***   ***   **     **   ***   ***   *********   **     **   **     **   *********\n");
+    gotoxy(19,9);printf("*********   **    **    *********         ***   **    **    **    **    ***   ***\n");
+    gotoxy(19,10);printf("*********   ******      *********   *********   ******      ******      ***   ***\n");
+    gotoxy(19,12);printf("                                    PET  SHOP                                   \n");
+    gotoxy(15,14);printf("=========================================================================================\n");
+//    gotoxy(15,27);printf("=========================================================================================\n");
+    gotoxy(38,16);printf("[==========================================]\n");
+    gotoxy(38,17);printf("[---            Lihat History           ---]\n");
+    gotoxy(38,18);printf("[==========================================]\n\n");
 
 
-//
-//    // membuka file untuk ditulis
-//    fptr = fopen("antrian_log.txt","w");
-//
-//
-//    // menulis ke text ke file
-//    fputs(nama, fptr);
-//
-//    printf("History Antiran berhasil dimasukan ^_^\n");
-//
-//    // tutup file setelah ditulis
-//    fclose(fptr);
+    FILE *fp;
+    char str[100];
+
+    int j=1;
+    /* opening file for reading */
+    fp = fopen("log_antrian.txt" , "r");
+    if(fp == NULL) {
+        perror("Error opening file");
+        return;
+    }
+    while(fgets (str, 100, fp)!=NULL ) {
+        gotoxy(25,18+(j+1)); puts(str);
+        j++;
+    }
+    fclose(fp);
+
+    getch();
 }

@@ -169,4 +169,6 @@ void menu();
 void toUpperStr(char str[]);
 
 void tulisFile(addrNQ data);
+
+void bacaFile();
 #endif // QUEUE_H

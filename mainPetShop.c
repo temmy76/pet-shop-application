@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include "Queue/queueDinamis.h"
 
-
-
 int main(){
     int pilihan;
     Queue antrian;
@@ -26,7 +24,7 @@ int main(){
                 ProsesPelanggan(&antrian);
                 break;
             case 5:
-                ProsesPelanggan(&antrian);
+                bacaFile();
                 break;
             case 6:
                 gotoxy(40,25);printf("Terimakasih sudah menggunakan aplikasi kami");
